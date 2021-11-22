@@ -1,0 +1,7 @@
+{
+  "name": "chefsito-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
