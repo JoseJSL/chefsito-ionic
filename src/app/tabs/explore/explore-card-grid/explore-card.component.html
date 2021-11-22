@@ -1,0 +1,16 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="6" sizeLg="4" *ngFor="let category of categories">
+      <ion-card>
+        <img [src]="category.imgUrl">
+        <div class="card-title">{{category.title}}</div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<!-- 
+<ion-card *ngFor="let category of categories">
+  <img [src]="category.imgUrl">
+  <div class="card-title">{{category.title}}</div>
+</ion-card> 
+-->

@@ -1,0 +1,26 @@
+ion-col{
+    --ion-grid-column-padding: 2vw;
+}
+
+ion-card{
+    position: relative;
+    text-align: center;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+ion-card img{
+    opacity: 0.5;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-title{
+    position: absolute;
+    font-size: 6vmin;
+    width: 100%;
+    font-weight: bold;
+    color: #FFFFFF;
+}

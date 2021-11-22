@@ -7,6 +7,7 @@ import { ExplorePage } from './explore.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { ExplorePageRoutingModule } from './explore-routing.module';
+import { ExploreCardComponent } from './explore-card-grid/explore-card.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { ExplorePageRoutingModule } from './explore-routing.module';
     ExploreContainerComponentModule,
     ExplorePageRoutingModule
   ],
-  declarations: [ExplorePage]
+  declarations: [ExplorePage, ExploreCardComponent]
 })
 export class ExplorePageModule {}
