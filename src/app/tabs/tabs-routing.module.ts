@@ -17,18 +17,18 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
-        loadChildren: () => import('./favorites/favorites.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
       },
       {
         path: '',
-        redirectTo: '/app/home',
+        redirectTo: 'home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/app/home',
+    redirectTo: '/welcome',
     pathMatch: 'full'
   }
 ];

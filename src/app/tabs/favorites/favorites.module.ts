@@ -19,4 +19,4 @@ import { FavoritesPageRoutingModule } from './favorites-routing.module';
   ],
   declarations: [FavoritesPage]
 })
-export class Tab3PageModule {}
+export class FavoritesPageModule {}

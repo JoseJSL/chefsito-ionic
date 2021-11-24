@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { RecipeCardComponent } from './recipe-card-grid/recipe-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     ExploreContainerComponentModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, RecipeCardComponent]
 })
 export class HomePageModule {}

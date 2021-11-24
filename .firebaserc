@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "chefsito-bot": {
+      "hosting": {
+        "app": [
+          "chefsito-bot"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chefsito-bot"
+  }
+}
