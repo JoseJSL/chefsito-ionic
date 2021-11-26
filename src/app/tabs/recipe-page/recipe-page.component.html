@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>{{Recipe.Title}}</ion-title>
+    <ion-button slot="icon-only"><ion-icon name="heart-outline"></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div>
+    <img [src]="Recipe.ImageURL">
+    <div>{{Recipe.Title}}</div>
+
+    <ion-tab-bar>
+      <ion-tab-button *ngFor="let tip of Tips" [style]="'background: ' + tip.Color">
+        <ion-icon [name]="tip.Icon"></ion-icon>
+        <ion-label>{{tip.Description}}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </div>
+
+</ion-content>

@@ -10,6 +10,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { HomePageModule } from './home/home.module';
 import { ExplorePageModule } from './explore/explore.module';
 import { FavoritesPageModule } from './favorites/favorites.module';
+import { RecipePage } from './recipe-page/recipe-page.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { FavoritesPageModule } from './favorites/favorites.module';
     ExplorePageModule,
     FavoritesPageModule
   ],
-  declarations: [TabsPage, SearchBarComponent]
+  declarations: [TabsPage, SearchBarComponent, RecipePage],
+  exports: [RecipePage]
 })
 export class TabsPageModule {}

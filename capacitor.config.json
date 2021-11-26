@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "chefsito-mobile",
+	"appId": "com.hyvy.chefsito",
+	"appName": "chefsito-bot",
 	"webDir": "www",
 	"bundledWebRuntime": false
 }

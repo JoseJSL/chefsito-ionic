@@ -13,6 +13,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule, PERSISTENCE, USE_DEVICE_LANGUAGE } from '@angular/fire/compat/auth';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +24,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+    AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)), 
@@ -28,7 +32,12 @@ import { AngularFireModule } from '@angular/fire/compat';
     provideFirestore(() => getFirestore()), 
     provideStorage(() => getStorage())
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    {provide: GooglePlus},
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: PERSISTENCE, useValue: 'local'},
+    {provide: USE_DEVICE_LANGUAGE, useValue: 'true'}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

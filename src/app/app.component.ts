@@ -12,9 +12,9 @@ export class AppComponent {
   public Recipes: Observable<RecipeCardData[]>;
 
   constructor(private firestore: AngularFirestore) {
-    this.RecipeCollection = firestore.collection('Recipe');
-    this.Recipes = this.RecipeCollection.valueChanges();  
-    this.Recipes.forEach(v => console.log(v));
-    this.RecipeCollection.doc('Structure').collection('Rating').valueChanges().forEach(v => console.log(v));
+    // this.RecipeCollection = firestore.collection('Recipe');
+    // this.Recipes = this.RecipeCollection.valueChanges();  
+    // this.Recipes.forEach(v => console.log(v));
+    // this.RecipeCollection.doc('Structure').collection('Rating').valueChanges().forEach(v => console.log(v));
   }
 }

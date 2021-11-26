@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipePage } from './recipe-page/recipe-page.component';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
-        loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
+        component: RecipePage
+        //loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
       },
       {
         path: '',

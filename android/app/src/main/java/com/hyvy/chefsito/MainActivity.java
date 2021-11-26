@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.hyvy.chefsito;
 
 import com.getcapacitor.BridgeActivity;
 
