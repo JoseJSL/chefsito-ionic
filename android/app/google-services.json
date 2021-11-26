@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1029740896252",
+    "project_id": "chefsito-bot",
+    "storage_bucket": "chefsito-bot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029740896252:android:86b9dced69366112411c79",
+        "android_client_info": {
+          "package_name": "com.hyvy.chefsito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029740896252-tjsdhsu5r4fc25vd99lktnno5ofl9p2s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hyvy.chefsito",
+            "certificate_hash": "43a0122e0c0aec4fe7193297854002e8a7a5cd5d"
+          }
+        },
+        {
+          "client_id": "1029740896252-5aakpdrvq60sfkicn8jo05ev33l80lmg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPEQ5w6_zZVn5SkDYARc98BY_i90wcgl8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029740896252-5aakpdrvq60sfkicn8jo05ev33l80lmg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
