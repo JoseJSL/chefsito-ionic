@@ -2,7 +2,7 @@ export interface Recipe{
     Author: Author,
     AvgRating: number,
     ImageURL: string,
-    PortionSize: Number,
+    PortionSize: number,
     TimeMin: string,
     Title: string
 }

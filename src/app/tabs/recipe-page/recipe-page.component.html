@@ -1,22 +1,94 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start"></ion-back-button>
+    <ion-back-button defaultHref="/app/home" slot="start"></ion-back-button>
     <ion-title>{{Recipe.Title}}</ion-title>
-    <ion-button slot="icon-only"><ion-icon name="heart-outline"></ion-icon></ion-button>
+    <ion-button fill="clear" slot="end"><ion-icon slot="icon-only" name="heart-outline"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen="true">
-  <div>
-    <img [src]="Recipe.ImageURL">
-    <div>{{Recipe.Title}}</div>
+<ion-content fullscreen="true" scrollY="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="center-vertical">
+        <img [src]="Recipe.ImageURL" class="recipe-img">
+      </ion-col>
 
-    <ion-tab-bar>
-      <ion-tab-button *ngFor="let tip of Tips" [style]="'background: ' + tip.Color">
-        <ion-icon [name]="tip.Icon"></ion-icon>
-        <ion-label>{{tip.Description}}</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </div>
+      <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="thingcolumn">
+        <ion-segment #segmentSelector (ionChange)="segmentChanged($event, segments);" value="summary" class="recipe-parts">
+          <ion-segment-button value="summary">
+            <ion-label>Resúmen</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="steps">
+            <ion-label>Pasos</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="comments">
+            <ion-label>Comentarios</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <swiper #segments [config]="swiperConfig"(slideChange)="sliderSwiped($event, segmentSelector)">
+
+          <ng-template class="slide" swiperSlide> <!-- Segmento de resúmen -->
+            <ion-grid>
+              <ion-row>
+                <ion-col *ngFor="let tip of Tips" class="tip">
+                  <ion-card [style]="'background-color:' + tip.Color" color="light">
+                    <ion-icon [name]="tip.Icon"></ion-icon>
+                    <ion-card-title>{{tip.Description}}</ion-card-title>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-buttons class="max-width">
+                  <ion-button (click)="changePortionSize(-1);" color="primary"><ion-icon name="remove" slot="icon-only"></ion-icon></ion-button>
+                  <ion-label class="align-self-center"> Por porcion de: <ion-label color="primary">{{Recipe.PortionSize}}</ion-label></ion-label>
+                  <ion-button (click)="changePortionSize(1)" color="primary" class="align-self-end"><ion-icon name="add" slot="icon-only"></ion-icon></ion-button>
+                </ion-buttons>
+              </ion-row>
+  
+              <ion-row>
+                <ion-grid class="ingredient-list">
+                  <ion-row *ngFor="let ingredient of Ingredients">
+                    <ion-col size="2">
+                      <ion-item color="primary" class="ion-text-right">
+                        <p>
+                          {{roundTo(ingredient.Quantity * Recipe.PortionSize / originalPortionSize, 1) + ingredient.QuantityType.Short}}
+                        </p>
+                      </ion-item  >
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>{{ingredient.Name}}</ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-row>
+
+            </ion-grid>
+
+          </ng-template>
+
+          <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
+            <ion-grid>
+              <ion-row *ngFor="let step of Steps" class="ion-margin-top">
+                <ion-col size="2" class="counter">
+                  <ion-item color="primary">{{Steps.indexOf(step)+1}}</ion-item>
+                </ion-col>
+                <ion-col class="ion-text-justify">
+                  <ion-label>{{step}}</ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-template>
+
+          <ng-template class="slide" swiperSlide> <!-- Segmento de comentarios (ratings) -->
+            Comments
+          </ng-template>
+        </swiper>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

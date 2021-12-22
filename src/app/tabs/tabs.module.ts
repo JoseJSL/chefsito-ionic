@@ -11,6 +11,7 @@ import { HomePageModule } from './home/home.module';
 import { ExplorePageModule } from './explore/explore.module';
 import { FavoritesPageModule } from './favorites/favorites.module';
 import { RecipePage } from './recipe-page/recipe-page.component';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { RecipePage } from './recipe-page/recipe-page.component';
     TabsPageRoutingModule,
     HomePageModule,
     ExplorePageModule,
-    FavoritesPageModule
+    FavoritesPageModule,
+    SwiperModule
   ],
   declarations: [TabsPage, SearchBarComponent, RecipePage],
   exports: [RecipePage]

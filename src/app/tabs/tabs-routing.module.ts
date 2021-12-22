@@ -5,6 +5,10 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
+    path: 'app/recipe',
+    component: RecipePage
+  },
+  {
     path: 'app',
     component: TabsPage,
     children: [
@@ -18,18 +22,17 @@ const routes: Routes = [
       },
       {
         path: 'favorites',
-        component: RecipePage
-        //loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
+        loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
       },
       {
-        path: '',
+        path: '**',
         redirectTo: 'home',
         pathMatch: 'full'
       }
     ]
   },
   {
-    path: '',
+    path: '**',
     redirectTo: '/welcome',
     pathMatch: 'full'
   }

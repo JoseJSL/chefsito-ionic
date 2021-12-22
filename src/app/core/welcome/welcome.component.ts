@@ -7,10 +7,10 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss'],
+  styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-
+  public register: boolean = false;
   constructor(private auth: AngularFireAuth, private platform: Platform, private googlePlus: GooglePlus) { }
 
   ngOnInit() {}
@@ -25,7 +25,6 @@ export class WelcomeComponent implements OnInit {
     } else {
       loginResult = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }
-
   }
 
   tryLoginFacebook(){

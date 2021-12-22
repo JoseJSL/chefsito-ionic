@@ -9,6 +9,11 @@ body{
     opacity: 0.5;
 }
 
+ion-button{
+    height: 6vh;
+    min-width: 18vw;
+}
+
 .google-button{
     background:  #4285F4;
 }
@@ -29,10 +34,4 @@ body{
     align-self: center;
     width: 48vh;
     top: 4vmax;
-}
-
-p{
-    cursor: pointer;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black, 0 0 1em black, 0 0 0.2em black;
 }

@@ -1,0 +1,59 @@
+.recipe-img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.align-self-center{
+    margin: 0 auto;
+}
+
+.align-self-end{
+    margin-left: auto;
+}
+
+ion-buttons{
+    font-size: 4vh;
+    ion-label{
+        ion-label{
+            font-weight: bold;
+        }
+    }
+}
+
+.max-width{
+    width: 100%;
+}
+
+.tip{
+    ion-card{
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+    }
+
+    ion-icon{
+        width: 8vmin;
+        height: 8vmin;
+    }
+}
+
+.counter{
+    display: flex;
+    align-items: center;
+
+    ion-item{
+        margin: 0 auto;
+    }
+}
+
+.center-vertical{
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 768px){  
+    .swiper-slide{
+        max-height: 67.5% !important;
+        background: white !important;
+        overflow-y: scroll !important;
+    }
+}
