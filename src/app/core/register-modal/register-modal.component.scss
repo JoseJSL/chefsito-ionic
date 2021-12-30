@@ -1,0 +1,13 @@
+.img-container{
+    display: flex;
+    align-items: center;
+
+    img{
+        margin: 0 auto;
+        width: 24vh;
+        top: 4vmax;
+    }
+}
+ion-input{
+    border: 1px solid #f1f1f1 !important;
+}

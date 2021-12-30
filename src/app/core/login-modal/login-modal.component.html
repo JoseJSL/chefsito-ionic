@@ -1,0 +1,19 @@
+<ion-content class="ion-padding">
+    <div class="img-container">
+        <img src="../../../assets/logo.png">
+    </div>
+
+    <ion-title class="ion-text-center ion-padding">Inicia sesión</ion-title>
+
+    <form [formGroup]="loginForm" (keyup.enter)="validateAndTry();">
+        <ion-input #usr (ionChange)="updateValue(usr);" name="username" type="email" placeholder="Correo electrónico" class="ion-margin-top ion-margin-bottom">
+            <ion-icon class="ion-padding-start" name="person-outline" slot="start"></ion-icon>
+        </ion-input>
+        <ion-input #pwd (ionChange)="updateValue(pwd)" name="password" type="password" placeholder="Contraseña" class="ion-margin-top ion-margin-bottom">
+            <ion-icon class="ion-padding-start" name="key-outline" slot="start"></ion-icon>
+        </ion-input>
+    </form>
+
+    <ion-button expand="full" type="submit" (click)="validateAndTry();">Ingresar</ion-button>
+    <ion-button expand="full" fill="clear">¿Olvidaste tu contraseña?</ion-button>
+</ion-content>

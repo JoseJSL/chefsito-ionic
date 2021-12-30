@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
-import { Platform } from '@ionic/angular';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { User } from 'src/app/user';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-welcome',
@@ -10,28 +8,23 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-  public register: boolean = false;
-  constructor(private auth: AngularFireAuth, private platform: Platform, private googlePlus: GooglePlus) { }
-
+  constructor(private auth: AuthService){}
   ngOnInit() {}
 
-  async tryLoginGoogle(){
-    var loginResult;
-
-    if(this.platform.is('android')){
-      loginResult = this.googlePlus.login({webClientID: '1029740896252-tjsdhsu5r4fc25vd99lktnno5ofl9p2s.apps.googleusercontent.com'})
-        .then(res => loginResult = res)
-        .catch(err => this.showGooglePlusError(err));
-    } else {
-      loginResult = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    }
+  tryLoginGoogle(){
+    this.auth.loginWithGoogle();
   }
-
   tryLoginFacebook(){
-    this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+    this.auth.loginWithFacebook();
   } 
 
-  showGooglePlusError(err){
-    console.log(err);
+  tryLoginEmail(){
+    this.auth.loginWithEmailPopUp();
   }
+
+  async tryRegisterEmail(){
+    this.auth.registerWithEmailPopUp();
+    //var user: User = await this.auth.getUserWhere('email', '==', 'josehyvy3@gmail.com');
+  }
+
 }

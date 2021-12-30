@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">chefsito-bot</string>
-    <string name="title_activity_main">chefsito-bot</string>
+    <string name="app_name">Chefsito</string>
+    <string name="title_activity_main">Chefsito</string>
     <string name="package_name">com.hyvy.chefsito</string>
     <string name="custom_url_scheme">com.hyvy.chefsito</string>
 </resources>

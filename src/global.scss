@@ -26,3 +26,16 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~swiper/scss';
 @import '~@ionic/angular/css/ionic-swiper';
+
+//Para los modals
+.loginModal{
+    @media only screen and (min-width: 768px) and (min-height: 600px) {
+        .modal-wrapper{
+            width: 55vh;
+        }
+
+        img{
+            display: none;
+        }
+    }
+}

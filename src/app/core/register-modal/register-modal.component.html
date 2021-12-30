@@ -1,0 +1,34 @@
+<ion-content class="ion-padding">
+  <div class="img-container">
+      <img src="../../../assets/logo.png">
+  </div>
+
+  <ion-title class="ion-text-center ion-padding">Regístro de usuario</ion-title>
+
+  <form [formGroup]="registerForm" (keyup.enter)="validateAndTry(pwd, pwdrpt)">
+    <ion-input #usr (ionChange)="updateValue(usr, usricon);" name="username" type="text" placeholder="Nombre de usuario" class="ion-margin-top ion-margin-bottom">
+      <ion-icon #usricon class="ion-padding-start" name="person-outline" slot="start"></ion-icon>
+    </ion-input>
+
+    <ion-input #first (ionChange)="updateValue(first, firsticon);" name="firstName" type="text" placeholder="Nombre(s)" class="ion-margin-top ion-margin-bottom">
+      <ion-icon #firsticon class="ion-padding-start" name="bookmark-outline" slot="start"></ion-icon>
+    </ion-input>
+
+    <ion-input #last (ionChange)="updateValue(last, lasticon);" name="lastName" type="email" placeholder="Apellido(s)" class="ion-margin-top ion-margin-bottom">
+      <ion-icon #lasticon class="ion-padding-start" name="bookmark-outline" slot="start"></ion-icon>
+    </ion-input>
+    
+    <ion-input #mail (ionChange)="updateValue(mail, mailicon);" name="email" type="email" placeholder="Correo electrónico" class="ion-margin-top ion-margin-bottom">
+      <ion-icon #mailicon class="ion-padding-start" name="mail-outline" slot="start"></ion-icon>
+    </ion-input>
+
+    <ion-input #pwd (ionChange)="updateValue(pwd, pwdicon)" name="password" type="password" placeholder="Contraseña" class="ion-margin-top ion-margin-bottom">
+        <ion-icon #pwdicon class="ion-padding-start" name="key-outline" slot="start"></ion-icon>
+    </ion-input>
+
+    <ion-input #pwdrpt (ionChange)="updateValue(pwdrpt, pwdrpticon)" name="passwordRepeat" type="password" placeholder="Repetir contraseña" class="ion-margin-top ion-margin-bottom">
+      <ion-icon #pwdrpticon class="ion-padding-start" name="key-outline" slot="start"></ion-icon>
+  </ion-input>
+  </form>
+  <ion-button expand="full" type="submit" (click)="validateAndTry(pwd, pwdrpt);">Regístrate</ion-button>
+</ion-content>
