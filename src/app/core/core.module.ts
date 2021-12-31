@@ -18,6 +18,6 @@ import { RegisterModalComponent } from './register-modal/register-modal.componen
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule
-  ],
+  ]
 })
 export class CoreModule { }

@@ -14,8 +14,8 @@ export class LoginModalComponent implements OnInit{
 
   ngOnInit() {
     this.loginForm = this.builder.group({
-      username: new FormControl('', Validators.email),
-      password: new FormControl('', Validators.required)
+      username: this.builder.control('', [Validators.required, Validators.email]),
+      password: this.builder.control('', [Validators.required])
     });
   }
 
@@ -24,10 +24,18 @@ export class LoginModalComponent implements OnInit{
       this.modCtrl.dismiss(this.loginForm.value);
     } else {
       const alert = await this.alertController.create({
-        message: "Llene los campos correctamente para continuar.",
+        message: this.getInvalidMessage(),
         buttons: ['Ok']
       });
       await alert.present();
+    }
+  }
+
+  getInvalidMessage(): string{
+    if(!this.loginForm.controls['username'].valid){
+      return "Ingrese un correo electrónico válido.";
+    } else {
+      return "Ingrese una contraseña.";
     }
   }
 

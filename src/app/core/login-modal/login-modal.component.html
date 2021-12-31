@@ -7,10 +7,10 @@
 
     <form [formGroup]="loginForm" (keyup.enter)="validateAndTry();">
         <ion-input #usr (ionChange)="updateValue(usr);" name="username" type="email" placeholder="Correo electrónico" class="ion-margin-top ion-margin-bottom">
-            <ion-icon class="ion-padding-start" name="person-outline" slot="start"></ion-icon>
+            <ion-icon #usricon class="ion-padding-start" name="person-outline" slot="start"></ion-icon>
         </ion-input>
         <ion-input #pwd (ionChange)="updateValue(pwd)" name="password" type="password" placeholder="Contraseña" class="ion-margin-top ion-margin-bottom">
-            <ion-icon class="ion-padding-start" name="key-outline" slot="start"></ion-icon>
+            <ion-icon #pwdicon class="ion-padding-start" name="key-outline" slot="start"></ion-icon>
         </ion-input>
     </form>
 

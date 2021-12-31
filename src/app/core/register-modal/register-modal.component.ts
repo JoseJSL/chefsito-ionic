@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController, IonInput, IonIcon, PopoverController } from '@ionic/angular';
-import { User } from 'src/app/user';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({

@@ -1,0 +1,28 @@
+<ion-menu side="start" menuId="homeMenu" contentId="mainMenuContent">
+  <ion-header>
+      <ion-toolbar>
+          <ion-avatar slot="start" class="ion-padding-start ion-padding-bottom ion-padding-top">
+              <img *ngIf="showUserData" [src]="currentUserData.imgURL">
+          </ion-avatar>
+          <ion-title *ngIf="showUserData">{{currentUserData.username}}</ion-title>
+      </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+      <ion-list>
+          <ion-button fill="clear" color="dark" expand="full" size="large">
+              <span class="ion-text-left">
+                <ion-icon name="person-outline" class="ion-padding-end"></ion-icon>
+                <ion-label class="ion-text-left">Mi perfíl</ion-label>
+              </span>
+            </ion-button>
+          
+            <ion-button fill="clear" color="dark" expand="full" size="large" (click)="logout();">
+              <span class="ion-text-left">
+                <ion-icon name="log-out-outline" class="ion-padding-end"></ion-icon>
+                <ion-label class="ion-text-left">Cerrar sesión</ion-label>
+              </span>
+            </ion-button>
+      </ion-list>
+  </ion-content>
+</ion-menu>

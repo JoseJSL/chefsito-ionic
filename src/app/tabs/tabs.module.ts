@@ -12,6 +12,7 @@ import { ExplorePageModule } from './explore/explore.module';
 import { FavoritesPageModule } from './favorites/favorites.module';
 import { RecipePage } from './recipe-page/recipe-page.component';
 import { SwiperModule } from 'swiper/angular';
+import { ProfilePopoverComponent } from './profile-popover/profile-popover.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { SwiperModule } from 'swiper/angular';
     FavoritesPageModule,
     SwiperModule
   ],
-  declarations: [TabsPage, SearchBarComponent, RecipePage],
-  exports: [RecipePage]
+  declarations: [TabsPage, SearchBarComponent, RecipePage, ProfilePopoverComponent],
+  exports: [RecipePage, SearchBarComponent]
 })
 export class TabsPageModule {}

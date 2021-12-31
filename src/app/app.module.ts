@@ -16,9 +16,10 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule, PERSISTENCE, USE_DEVICE_LANGUAGE } from '@angular/fire/compat/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SideMenuComponent } from './core/side-menu/side-menu.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SideMenuComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 

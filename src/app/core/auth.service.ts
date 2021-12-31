@@ -9,8 +9,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {  WhereFilterOp } from 'firebase/firestore';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
-import { settings } from 'cluster';
-import { ActionCodeSettings } from 'firebase/auth';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
 
 @Injectable({
@@ -43,7 +41,28 @@ export class AuthService {
     });
     await modal.present();
 
-    const { data } = await modal.onDidDismiss();
+    const { data } = await modal.onDidDismiss(); 
+    if(data){
+      const popup = await this.loadingController.create({message: 'Registrando...'});
+      popup.present()
+      const user: User = {username: data.username, firstName: data.firstName, lastName: data.lastName, email: data.email, imgURL: '', joinDate: new Date()};
+      await this.auth.createUserWithEmailAndPassword(data.email, data.password)
+        .then(
+          async (u) => {
+            const preExistent = await this.getUserWhere('email', "==", user.email);
+            
+            if(preExistent === null){
+              await this.registerNewUser(user);
+            }
+            popup.dismiss();
+            this.showAlertDialog("", "¡La cuenta se ha creado con éxito!");
+          }
+        )
+        .catch(err => {
+          popup.dismiss();
+          this.showAlertDialog("Error al registrar cuenta.", err);
+        });
+    } 
   }
 
   async loginWithGoogle(){
@@ -57,9 +76,8 @@ export class AuthService {
   async loginWithGooglePopUp(){
     const popup = await this.loadingController.create({message: 'Ingresando...'});
     popup.present()
-    await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider().addScope('https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile'))
+    await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
       .then(async result => {
-        console.log(result);
         if(result.additionalUserInfo.isNewUser){
           await this.registerNewUser({
             username: result.user.displayName, 
@@ -70,7 +88,7 @@ export class AuthService {
             joinDate: new Date(result.user.metadata.creationTime)
           });
         }
-
+        localStorage.setItem("currentEmail", (result.additionalUserInfo.profile as any).email);
         popup.dismiss();
         this.router.navigate(['/app/home']);
       })
@@ -108,7 +126,8 @@ export class AuthService {
         const { idToken, accessToken } = response;
         await this.onGooglePlusLogin(idToken, accessToken);
         popup.dismiss();
-        this.router.navigate(['/app/home']);
+        localStorage.setItem("currentEmail", response.email);
+        this.router.navigate(['app', 'home']);
       })
       .catch(() => {
         popup.message = "Operación cancelada...";
@@ -128,12 +147,23 @@ export class AuthService {
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
-    this.auth.signInWithEmailAndPassword(data.username, data.password).then(
-      (success) => {
-        console.log(success);
-      },
-      (err) => console.log("ERROR: " + err)
-    );
+    if(data){
+      const popup = await this.loadingController.create({message: 'Ingresando...'});
+      popup.present()
+
+      await this.auth.signInWithEmailAndPassword(data.username, data.password).then(
+        () => {
+          popup.dismiss();
+          localStorage.setItem("currentEmail", data.username);
+          this.router.navigate(['/app/home']);
+        },
+        (err) =>{
+          popup.dismiss();
+          this.loginWithEmailPopUp();
+          this.showAlertDialog("Error al inciar sesión.", err);
+        }
+      ); 
+    }
   }
 
   async showAlertDialog(title: string, msg: any){
@@ -161,5 +191,14 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  async logout(){
+    if(this.platform.is('android')){
+      await this.googlePlus.disconnect();
+    }
+    await this.auth.signOut();
+    localStorage.clear();
+    this.router.navigate(['/welcome']);
   }
 }
