@@ -51,9 +51,9 @@ ion-buttons{
 }
 
 @media (min-width: 768px){  
-    .swiper-slide{
-        max-height: 67.5% !important;
-        background: white !important;
-        overflow-y: scroll !important;
+    swiper{
+        //background: white !important;
+        max-height: 477px !important;
+        overflow-y: auto !important;
     }
 }

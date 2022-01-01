@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Water Glass</title>
+  <desc>A solid styled icon from Orion Icon Library.</desc>
+  <path data-name="layer2" d="M37.5 14h-11a34.4 34.4 0 0 1-2 3.9C22.9 21 21 24.4 21 28v31c0 4 6.5 4 8.6 4h4.7c4 0 8.6-.5 8.6-4V28c0-3.6-1.9-7-3.6-10.1a34.4 34.4 0 0 1-1.8-3.9z" fill="#202020"></path>
+  <path data-name="layer1" d="M37 10V2a1 1 0 0 0-1-1h-8a1 1 0 0 0-1 1v8z" fill="#202020"></path>
+</svg>

@@ -19,6 +19,7 @@ export interface Tip{
 }
 
 export interface Ingredient{
+    Icon: string,
     Name: string,
     Quantity: number,
     QuantityType: QuantityType

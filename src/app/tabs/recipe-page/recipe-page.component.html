@@ -28,9 +28,9 @@
           </ion-segment-button>
         </ion-segment>
 
-        <swiper #segments [config]="swiperConfig"(slideChange)="sliderSwiped($event, segmentSelector)">
+        <swiper #segments [config]="swiperConfig" (slideChange)="sliderSwiped($event, segmentSelector)">
 
-          <ng-template class="slide" swiperSlide> <!-- Segmento de resúmen -->
+          <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>
               <ion-row>
                 <ion-col *ngFor="let tip of Tips" class="tip">
@@ -52,15 +52,13 @@
               <ion-row>
                 <ion-grid class="ingredient-list">
                   <ion-row *ngFor="let ingredient of Ingredients">
-                    <ion-col size="2">
-                      <ion-item color="primary" class="ion-text-right">
-                        <p>
-                          {{roundTo(ingredient.Quantity * Recipe.PortionSize / originalPortionSize, 1) + ingredient.QuantityType.Short}}
-                        </p>
-                      </ion-item  >
+                    <ion-col size="auto">
+                      <ion-item color="dark">
+                        <ion-icon size="large" [name]="ingredient.Icon"></ion-icon>
+                      </ion-item>
                     </ion-col>
                     <ion-col>
-                      <ion-item>{{ingredient.Name}}</ion-item>
+                      <ion-item>{{roundTo(ingredient.Quantity * Recipe.PortionSize / originalPortionSize, 1) + ingredient.QuantityType.Short}} {{ingredient.Name}}</ion-item>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -73,7 +71,7 @@
           <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
             <ion-grid>
               <ion-row *ngFor="let step of Steps" class="ion-margin-top">
-                <ion-col size="2" class="counter">
+                <ion-col size="auto" class="counter">
                   <ion-item color="primary">{{Steps.indexOf(step)+1}}</ion-item>
                 </ion-col>
                 <ion-col class="ion-text-justify">
@@ -84,7 +82,7 @@
           </ng-template>
 
           <ng-template class="slide" swiperSlide> <!-- Segmento de comentarios (ratings) -->
-            Comments
+            <ion-label>very kul</ion-label>
           </ng-template>
         </swiper>
       </ion-col>

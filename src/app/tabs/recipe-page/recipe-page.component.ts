@@ -11,7 +11,6 @@ import { SwiperOptions } from 'swiper';
 })
 export class RecipePage implements OnInit {
   public swiperConfig: SwiperOptions = {
-    autoHeight: true
   };
   public Recipe: Recipe;
   public Tips: Tip[]
@@ -35,15 +34,15 @@ export class RecipePage implements OnInit {
     this.Tips = [
       {Icon: 'time', Description: this.Recipe.TimeMin, Color: '#8BC34A'},
       {Icon: 'book', Description: 'Avanzado', Color: '#DF1A1A'},
-      {Icon: 'hammer', Description: 'Martillo', Color: '#4CAF50'}
+      {Icon: 'kitchen-horno', Description: 'Horno', Color: '#4CAF50'}
     ];
 
     this.Ingredients = [
-      {Name: 'Vino tinto', Quantity: 200, QuantityType: {For: 'Liquidos', Name:'Mililitros', Short: 'ml'}},
-      {Name: 'Carne ternera para guisar', Quantity: 600, QuantityType: {For: 'Solidos', Name:'Gramos', Short: 'gr'}},
-      {Name: 'Zanahoria', Quantity: 2, QuantityType: {For: 'Unidades', Name:'Unidades', Short: ''}},
-      {Name: 'Huevos', Quantity: 2, QuantityType: {For: 'Unidades', Name:'Unidades', Short: ''}},
-      {Name: 'Panceta de cerdo', Quantity: 300, QuantityType: {For: 'Solidos', Name:'Gramos', Short: 'gr'}},
+      {Icon: 'food-alcohol' ,Name: 'Vino tinto', Quantity: 200, QuantityType: {For: 'Liquidos', Name:'Mililitros', Short: 'ml'}},
+      {Icon: 'food-carne',Name: 'Carne ternera para guisar', Quantity: 600, QuantityType: {For: 'Solidos', Name:'Gramos', Short: 'gr'}},
+      {Icon: 'food-zanahoria' ,Name: 'Zanahoria', Quantity: 2, QuantityType: {For: 'Unidades', Name:'Unidades', Short: ''}},
+      {Icon: 'food-huevo', Name: 'Huevos', Quantity: 2, QuantityType: {For: 'Unidades', Name:'Unidades', Short: ''}},
+      {Icon: 'food-carne',Name: 'Panceta de cerdo', Quantity: 300, QuantityType: {For: 'Solidos', Name:'Gramos', Short: 'gr'}},
 
     ];
 
@@ -52,6 +51,11 @@ export class RecipePage implements OnInit {
       "Introducimos las láminas de lasaña una a una sin que se toquen (para que no se peguen entre ellas). Ahora podemos encontrar infinidad de tipos de lasaña donde no hace hidratarla como se hacía antes. En casa muchas veces para ahorrar tiempo empleo las que se hidratan con la bechamel y el jugo que suelta la salsa al hornear.",
       "Si lo hacéis de la manera tradicional tenemos que remover con una cuchara de madera y en unos 10 minutos sacamos las láminas. Las estiramos encima de unas hojas de papel absorbente de cocina. Aunque os parezca que no están, acabarán haciéndose en el horno.",
       "El siguiente paso será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",
+      "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
+      "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
+      "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
+      "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
+      "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
       "El siguiente paso otra vez será lavar muy bien todas las verduras que vamos a emplear en el relleno. En la receta os aconsejo el relleno de la clásica salsa boloñesa, zanahorias, ajo, pimientos y cebolla.",  
     ]
 
@@ -94,16 +98,9 @@ export class RecipePage implements OnInit {
   }
   
   roundTo(num: number, places: number) {
-    const factor = 10 ** places;
+    const factor = 10 * places;
     return Math.round(num * factor) / factor;
   };
-
-  testEvent(ev: any){
-  }
-
-  onMove(detail){
-    console.log(detail);
-  }
 }
 
 // <color name="difficultyVeryHard">#FF7A0000</color>

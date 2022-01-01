@@ -29,6 +29,16 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "src/assets/kitchen-icons",
+                "output": "./svg"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "src/assets/food-icons",
+                "output": "./svg"
               }
             ],
             "styles": [

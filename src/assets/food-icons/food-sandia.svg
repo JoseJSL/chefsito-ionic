@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Watermelon</title>
+  <desc>A solid styled icon from Orion Icon Library.</desc>
+  <path data-name="layer2" d="M56 15v4a24 24 0 1 1-48 0v-4H2v4a30 30 0 1 0 60 0v-4z" fill="#8aaf3f"></path>
+  <path data-name="layer1" d="M32 43a24 24 0 0 0 24-24v-4H8v4a24 24 0 0 0 24 24z" fill="#CC2821"></path>
+</svg>
