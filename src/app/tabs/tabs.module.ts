@@ -15,6 +15,9 @@ import { SwiperModule } from 'swiper/angular';
 import { ProfilePopoverComponent } from './profile-popover/profile-popover.component';
 import { RecipeInstructionsComponent } from './recipe-page/recipe-instructions/recipe-instructions.component';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+import { RouterModule } from '@angular/router';
+import { RecipeGrid } from './recipe-grid/recipe-grid.component';
 
 @NgModule({
   imports: [
@@ -26,8 +29,9 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
     ExplorePageModule,
     FavoritesPageModule,
     SwiperModule,
+    RouterModule
   ],
-  declarations: [TabsPage, SearchBarComponent, RecipePage, RecipeInstructionsComponent, ProfilePopoverComponent],
+  declarations: [TabsPage, SearchBarComponent, RecipeGrid, RecipeCardComponent, RecipePage, RecipeInstructionsComponent, ProfilePopoverComponent],
   exports: [RecipePage, SearchBarComponent],
   providers: [
     {provide: TextToSpeech}

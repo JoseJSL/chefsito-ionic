@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ExplorePage } from './explore.page';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
 import { ExplorePageRoutingModule } from './explore-routing.module';
 import { ExploreCardComponent } from './explore-card-grid/explore-card.component';
@@ -14,7 +13,6 @@ import { ExploreCardComponent } from './explore-card-grid/explore-card.component
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     ExplorePageRoutingModule
   ],
   declarations: [ExplorePage, ExploreCardComponent]

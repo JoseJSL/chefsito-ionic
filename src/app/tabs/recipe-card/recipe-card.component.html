@@ -1,0 +1,28 @@
+<ion-card routerLink="/app/recipe/{{Recipe.UID}}">
+  <ion-card-header class="align-vertical">
+    <ion-avatar class="align-end">
+      <ion-img [src]="Recipe.Author.ImageUrl"></ion-img>
+    </ion-avatar>
+    <ion-card-subtitle>{{Recipe.Author.Name}}</ion-card-subtitle>
+  </ion-card-header>
+  
+  <img class="recipeImage" [src]="Recipe.ImageURL">
+
+  <ion-card-content>
+    <ion-item class="align-vertical">
+      <ion-card-title>{{Recipe.Title}}</ion-card-title>
+    </ion-item>
+
+    <ion-row>
+      <ion-item>
+        <ion-icon name="time" style="color: #FFFFFF;"></ion-icon>
+        <div class="icon-description">{{Recipe.TimeMin}}</div>
+      </ion-item> 
+
+      <ion-item class="align-end">
+        <ion-icon name="star" style="color: gold;"></ion-icon>
+        <div class="icon-description" style="color: gold;">{{Recipe.AvgRating}}</div>
+      </ion-item>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
