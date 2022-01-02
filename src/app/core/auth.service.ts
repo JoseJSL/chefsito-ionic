@@ -16,22 +16,17 @@ import { RegisterModalComponent } from './register-modal/register-modal.componen
 })
 export class AuthService {
   constructor(
+    public afs: AngularFirestore, 
+    public auth: AngularFireAuth, 
     private router: Router, 
-    private auth: AngularFireAuth, 
-    private afs: AngularFirestore, 
     private platform: Platform, 
     private googlePlus: GooglePlus, 
     private modalCtrl: ModalController, 
     private alertController: AlertController, 
     private loadingController: LoadingController){}
 
-  async registerNewUser(user: User){
-    await this.afs.collection('User').add(user).then(
-      () => {},
-      (err) => {
-        console.log(err);
-      }
-    );
+  async registerNewUser(uid: string, user: User){
+    await this.afs.collection<User>('User').doc(uid).set(user);
   }
 
   async registerWithEmailPopUp(){
@@ -42,18 +37,15 @@ export class AuthService {
     await modal.present();
 
     const { data } = await modal.onDidDismiss(); 
+
     if(data){
       const popup = await this.loadingController.create({message: 'Registrando...'});
       popup.present()
-      const user: User = {username: data.username, firstName: data.firstName, lastName: data.lastName, email: data.email, imgURL: '', joinDate: new Date()};
+      const user: User = {username: data.username, firstName: data.firstName, lastName: data.lastName, email: data.email, imgURL: 'assets/user-default.png', joinDate: new Date()};
       await this.auth.createUserWithEmailAndPassword(data.email, data.password)
         .then(
-          async (u) => {
-            const preExistent = await this.getUserWhere('email', "==", user.email);
-            
-            if(preExistent === null){
-              await this.registerNewUser(user);
-            }
+          async (result) => {
+            await this.registerNewUser(result.user.uid, user);
             popup.dismiss();
             this.showAlertDialog("", "¡La cuenta se ha creado con éxito!");
           }
@@ -79,7 +71,7 @@ export class AuthService {
     await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider)
       .then(async result => {
         if(result.additionalUserInfo.isNewUser){
-          await this.registerNewUser({
+          await this.registerNewUser(result.user.uid, {
             username: result.user.displayName, 
             firstName: (result.additionalUserInfo.profile as any).given_name,
             lastName: (result.additionalUserInfo.profile as any).family_name, 
@@ -88,7 +80,6 @@ export class AuthService {
             joinDate: new Date(result.user.metadata.creationTime)
           });
         }
-        localStorage.setItem("currentEmail", (result.additionalUserInfo.profile as any).email);
         popup.dismiss();
         this.router.navigate(['/app/home']);
       })
@@ -102,16 +93,16 @@ export class AuthService {
     const credential = accessSecret ?
         firebase.auth.GoogleAuthProvider.credential(accessToken, accessSecret) :
         firebase.auth.GoogleAuthProvider.credential(accessToken);
-    
+
     await this.auth.signInWithCredential(credential)
       .then(async result => {
         if(result.additionalUserInfo.isNewUser){
-          await this.registerNewUser({
+          await this.registerNewUser(result.user.uid, {
             username: result.user.displayName, 
             firstName: (result.additionalUserInfo.profile as any).given_name,
             lastName: (result.additionalUserInfo.profile as any).family_name, 
             imgURL: result.user.photoURL,
-            email: (result.additionalUserInfo.profile as any).email,
+            email: result.user.email,
             joinDate: new Date(result.user.metadata.creationTime)
           });
         }
@@ -126,7 +117,6 @@ export class AuthService {
         const { idToken, accessToken } = response;
         await this.onGooglePlusLogin(idToken, accessToken);
         popup.dismiss();
-        localStorage.setItem("currentEmail", response.email);
         this.router.navigate(['app', 'home']);
       })
       .catch(() => {
@@ -154,7 +144,6 @@ export class AuthService {
       await this.auth.signInWithEmailAndPassword(data.username, data.password).then(
         () => {
           popup.dismiss();
-          localStorage.setItem("currentEmail", data.username);
           this.router.navigate(['/app/home']);
         },
         (err) =>{
@@ -177,28 +166,15 @@ export class AuthService {
     return;
   }
 
-  async getUserWhere(attribute: string, comparator: WhereFilterOp, value: string): Promise<User>{
-    var user: User = null;
-
-    const query = await this.afs.collection('User',
-      (query =>
-        query.where(attribute, comparator, value).limit(1)
-      )
-    )
-    const snapshot = await query.ref.where(attribute, comparator, value).limit(1).get();
-    if(!snapshot.empty){
-      user = snapshot.docs[0].data() as User;
-    }
-
-    return user;
-  }
-
   async logout(){
+    const popup = await this.loadingController.create({message: 'Cerrando sesión...'});
+    popup.present()
+
     if(this.platform.is('android')){
       await this.googlePlus.disconnect();
     }
     await this.auth.signOut();
-    localStorage.clear();
+    popup.dismiss()
     this.router.navigate(['/welcome']);
   }
 }

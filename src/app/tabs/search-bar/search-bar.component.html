@@ -2,10 +2,10 @@
     <ion-toolbar>
         <ion-button slot="start" fill="clear" color="dark" size="large" class="ion-no-padding" (click)="showProfilePopover();">
             <ion-avatar>
-                <img *ngIf="showUserData" [src]="currentUserData.imgURL">
+                <img [src]="currentUserData.imgURL">
             </ion-avatar>
         </ion-button>
-        <ion-searchbar showCancelButton="focus" placeholder="Busca recetas o ingredientes..."></ion-searchbar>
+        <ion-searchbar showCancelButton="focus" placeholder="Busca recetas o ingredientes"></ion-searchbar>
         <ion-menu></ion-menu>
     </ion-toolbar>
 </ion-header>

@@ -1,50 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { MenuController, Platform, PopoverController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/auth.service';
-import { User } from 'src/app/user';
-import { ProfilePopoverComponent } from '../profile-popover/profile-popover.component';
-
+import { defaultUser, User } from 'src/app/user';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent implements OnInit {
-  public isAndroid = false;
-  public searchBarSlot = 'start';
-  public avatarSlot = 'end';
-  public currentUserData: User = null;
-  public showUserData = false;
+  public currentUserData: User;
   public profilePopover: HTMLIonPopoverElement;
-  constructor(private menuCtrl: MenuController, private platform: Platform,private authService: AuthService, private popoverCtrl: PopoverController) { }
+  constructor(private menuCtrl: MenuController, private auth: AuthService) { }
 
-  async ngOnInit() {
-    if(this.platform.is('android')){
-      this.searchBarSlot = "end";
-      this.avatarSlot = "start";
-      this.isAndroid = true;
-    }
-
-    this.currentUserData = await this.authService.getUserWhere('email', "==", localStorage.getItem("currentEmail"));
-
-    if(this.currentUserData){
-      if(!(this.currentUserData.imgURL.length > 1)){
-        this.currentUserData.imgURL = 'assets/user-default.png'
+  ngOnInit() {
+    this.currentUserData = defaultUser;
+    this.auth.auth.onAuthStateChanged(user => {
+      if(user){
+        this.auth.afs.collection<User>('User').doc(user.uid).valueChanges().subscribe(data => {
+          this.currentUserData = data;
+        });
       }
-      this.showUserData = true;
-    }
+    });
   }
 
-  async showProfilePopover(){
+  showProfilePopover(){
     this.menuCtrl.enable(true, 'homeMenu');
     this.menuCtrl.open('homeMenu');
   }
 
   async logout(){
     await this.menuCtrl.close('homeMenu');
-    await this.authService.logout();
+    await this.auth.logout();
   }
 }

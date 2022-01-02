@@ -2,9 +2,9 @@
   <ion-header>
       <ion-toolbar>
           <ion-avatar slot="start" class="ion-padding-start ion-padding-bottom ion-padding-top">
-              <img *ngIf="showUserData" [src]="currentUserData.imgURL">
+              <img [src]="currentUserData.imgURL">
           </ion-avatar>
-          <ion-title *ngIf="showUserData">{{currentUserData.username}}</ion-title>
+          <ion-title>{{currentUserData.username}}</ion-title>
       </ion-toolbar>
   </ion-header>
 

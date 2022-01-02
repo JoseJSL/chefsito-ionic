@@ -28,7 +28,7 @@
           </ion-segment-button>
         </ion-segment>
 
-        <swiper #segments (slideChange)="sliderSwiped($event, segmentSelector)">
+        <swiper #segments (slideChange)="sliderSwiped(segments, segmentSelector)">
 
           <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>

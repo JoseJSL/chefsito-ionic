@@ -92,10 +92,11 @@ export class RecipePage implements OnInit {
         segments.swiperRef.slideTo(2);
         break;
     }
+    segments.swiperRef.el.scrollTop = 0;
   }
 
-  sliderSwiped(ev: any, segmentSelector: IonSegment){
-    switch(ev.activeIndex){
+  sliderSwiped(segments: SwiperComponent, segmentSelector: IonSegment){
+    switch(segments.swiperRef.realIndex){
       case 0:
         segmentSelector.value = "summary";
         break;
@@ -106,6 +107,7 @@ export class RecipePage implements OnInit {
         segmentSelector.value = "comments";
         break;
     }
+    segments.swiperRef.el.scrollTop = 0;
   }
 
   changePortionSize(size: number){

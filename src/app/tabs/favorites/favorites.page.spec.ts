@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
 
-import { FavoritesPage } from './favorites';
+import { FavoritesPage } from './favorites.page';
 
 describe('FavoritesPage', () => {
   let component: FavoritesPage;
