@@ -1,4 +1,5 @@
 export interface Recipe {
+    UID: string,
     TimeTip: Tip;
     //DifficultyTip: Tip;
     //SpecialTip: Tip;

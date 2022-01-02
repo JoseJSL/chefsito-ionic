@@ -1,4 +1,5 @@
 export interface Recipe{
+    UID: string,
     Author: Author,
     AvgRating: number,
     ImageURL: string,
@@ -7,18 +8,26 @@ export interface Recipe{
     Title: string
 }
 
+export interface RecipeData{
+    Ingredients: Ingredient[],
+    Ratings: Rating[],
+    Steps: string[],
+    Tips: Tip[]
+}
+
+
 interface Author{
     Name: string,
     ImageUrl: string
 }
 
-export interface Tip{
+interface Tip{
     Icon: string,
     Description: string,
     Color: string
 }
 
-export interface Ingredient{
+interface Ingredient{
     Icon: string,
     Name: string,
     Quantity: number,
@@ -29,4 +38,10 @@ interface QuantityType{
     For: string,
     Name: string,
     Short: string
+}
+
+interface Rating{
+    Rating: number,
+    User: string,
+    UserImageURL
 }

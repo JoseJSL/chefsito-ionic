@@ -17,6 +17,7 @@ import { AngularFireAuthModule, PERSISTENCE, USE_DEVICE_LANGUAGE } from '@angula
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideMenuComponent } from './core/side-menu/side-menu.component';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   declarations: [AppComponent, SideMenuComponent],
@@ -39,7 +40,8 @@ import { SideMenuComponent } from './core/side-menu/side-menu.component';
     {provide: GooglePlus},
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide: PERSISTENCE, useValue: 'local'},
-    {provide: USE_DEVICE_LANGUAGE, useValue: 'true'}
+    {provide: USE_DEVICE_LANGUAGE, useValue: 'true'},
+    {provide: TextToSpeech}
   ],
   bootstrap: [AppComponent],
 })

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { AngularFireAuthGuard, AuthPipe, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipeInstructionsComponent } from './recipe-page/recipe-instructions/recipe-instructions.component';
 import { RecipePage } from './recipe-page/recipe-page.component';
 import { TabsPage } from './tabs.page';
 
@@ -9,7 +10,18 @@ const redirectInToLogin = () => redirectUnauthorizedTo(['welcome']);
 const routes: Routes = [
   {
     path: 'app/recipe',
-    component: RecipePage
+    canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: redirectInToLogin},
+    children: [
+      {
+        path: ':uid',
+        component: RecipePage,
+      },
+      {
+        path: ':uid/steps',
+        component: RecipeInstructionsComponent,
+      }
+    ]
   },
   {
     path: 'app',

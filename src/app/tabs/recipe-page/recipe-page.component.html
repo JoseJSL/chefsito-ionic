@@ -28,12 +28,12 @@
           </ion-segment-button>
         </ion-segment>
 
-        <swiper #segments [config]="swiperConfig" (slideChange)="sliderSwiped($event, segmentSelector)">
+        <swiper #segments (slideChange)="sliderSwiped($event, segmentSelector)">
 
           <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>
               <ion-row>
-                <ion-col *ngFor="let tip of Tips" class="tip">
+                <ion-col *ngFor="let tip of RecipeData.Tips" class="tip">
                   <ion-card [style]="'background-color:' + tip.Color" color="light">
                     <ion-icon [name]="tip.Icon"></ion-icon>
                     <ion-card-title>{{tip.Description}}</ion-card-title>
@@ -51,7 +51,7 @@
   
               <ion-row>
                 <ion-grid class="ingredient-list">
-                  <ion-row *ngFor="let ingredient of Ingredients">
+                  <ion-row *ngFor="let ingredient of RecipeData.Ingredients">
                     <ion-col size="auto">
                       <ion-item color="dark">
                         <ion-icon size="large" [name]="ingredient.Icon"></ion-icon>
@@ -70,9 +70,9 @@
 
           <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
             <ion-grid>
-              <ion-row *ngFor="let step of Steps" class="ion-margin-top">
+              <ion-row *ngFor="let step of RecipeData.Steps" class="ion-margin-top">
                 <ion-col size="auto" class="counter">
-                  <ion-item color="primary">{{Steps.indexOf(step)+1}}</ion-item>
+                  <ion-item color="primary">{{RecipeData.Steps.indexOf(step)+1}}</ion-item>
                 </ion-col>
                 <ion-col class="ion-text-justify">
                   <ion-label>{{step}}</ion-label>
@@ -89,4 +89,9 @@
     </ion-row>
   </ion-grid>
 
+  <ion-fab (click)="startAssistant();" vertical="bottom" horizontal="end" slot="fixed" class="ion-margin" title="Iniciar asistente">
+    <ion-fab-button>
+      <ion-icon name="play"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

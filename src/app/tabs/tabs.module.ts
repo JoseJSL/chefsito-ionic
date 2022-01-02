@@ -13,6 +13,8 @@ import { FavoritesPageModule } from './favorites/favorites.module';
 import { RecipePage } from './recipe-page/recipe-page.component';
 import { SwiperModule } from 'swiper/angular';
 import { ProfilePopoverComponent } from './profile-popover/profile-popover.component';
+import { RecipeInstructionsComponent } from './recipe-page/recipe-instructions/recipe-instructions.component';
+import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 
 @NgModule({
   imports: [
@@ -23,9 +25,12 @@ import { ProfilePopoverComponent } from './profile-popover/profile-popover.compo
     HomePageModule,
     ExplorePageModule,
     FavoritesPageModule,
-    SwiperModule
+    SwiperModule,
   ],
-  declarations: [TabsPage, SearchBarComponent, RecipePage, ProfilePopoverComponent],
-  exports: [RecipePage, SearchBarComponent]
+  declarations: [TabsPage, SearchBarComponent, RecipePage, RecipeInstructionsComponent, ProfilePopoverComponent],
+  exports: [RecipePage, SearchBarComponent],
+  providers: [
+    {provide: TextToSpeech}
+  ]
 })
 export class TabsPageModule {}

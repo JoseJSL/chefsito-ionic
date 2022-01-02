@@ -24,8 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-@import '~swiper/scss';
 @import '~@ionic/angular/css/ionic-swiper';
+
+@import "~swiper/css";
+@import "~swiper/css/pagination";
+@import "~swiper/css/navigation";
 
 //Para los modals
 .loginModal{
@@ -39,3 +42,17 @@
         }
     }
 }
+
+//Para los swipers
+.swiper-button-next, .swiper-button-prev {
+    color: #FF0000 !important;
+}
+
+.swiper-pagination-bullet {
+    width: 6vh;
+    height: 6vh;
+    line-height: 6vh;
+    text-align: center;
+    font-size: 3.6vh;
+  }
+  

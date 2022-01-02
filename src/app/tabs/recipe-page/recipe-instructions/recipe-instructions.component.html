@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button defaultHref="/app/home" slot="start"></ion-back-button>
+    <ion-title>Instrucciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <swiper [config]="swiperConfig" [navigation]="true" #stepSwiper (slideChange)="readStep(stepSwiper);">
+    <ng-template swiperSlide *ngFor="let step of Steps">
+      <div class="ion-margin">
+        <div class="stepText ion-text-center ion-padding ion-margin">{{step}}</div>
+      </div>
+    </ng-template>
+  </swiper>
+</ion-content>
