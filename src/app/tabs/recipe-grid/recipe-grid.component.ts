@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Recipe } from '../recipe-page/recipe';
+import { Recipe } from '../../recipe';
 
 @Component({
   selector: 'app-recipe-grid',
@@ -8,17 +8,10 @@ import { Recipe } from '../recipe-page/recipe';
   styleUrls: ['./recipe-grid.component.scss'],
 })
 export class RecipeGrid implements OnInit {
-  public Recipes: Recipe[];
-  constructor(private afs: AngularFirestore) { }
+  @Input() Recipes: Recipe[];
+  constructor() { }
 
   ngOnInit() {
-    this.afs.collection<Recipe>('Recipe').valueChanges().subscribe(recipeCollection => {
-      recipeCollection.forEach(recipe => {
-        var i = this.Recipes.indexOf(recipe);
-        i = (i >= 0) ? i : this.Recipes.length;
-        this.Recipes[i] = recipe;
-      });
-    });
   }
 
 }

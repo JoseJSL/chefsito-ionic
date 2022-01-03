@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { ExplorePage } from './explore/explore.page';
+import { FavoritesPage } from './favorites/favorites.page';
+import { HomePage } from './home/home.page';
 import { RecipeInstructionsComponent } from './recipe-page/recipe-instructions/recipe-instructions.component';
 import { RecipePage } from './recipe-page/recipe-page.component';
 import { TabsPage } from './tabs.page';
@@ -31,15 +34,15 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+        component: HomePage,
       },
       {
         path: 'explore',
-        loadChildren: () => import('./explore/explore.module').then(m => m.ExplorePageModule)
+        component: ExplorePage,
       },
       {
         path: 'favorites',
-        loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesPageModule)
+        component: FavoritesPage,
       },
       {
         path: '**',

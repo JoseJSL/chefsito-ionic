@@ -1,12 +1,12 @@
 <ion-card routerLink="/app/recipe/{{Recipe.UID}}">
   <ion-card-header class="align-vertical">
     <ion-avatar class="align-end">
-      <ion-img [src]="Recipe.Author.ImageUrl"></ion-img>
+      <ion-img [src]="Recipe.Author.ImgURL"></ion-img>
     </ion-avatar>
     <ion-card-subtitle>{{Recipe.Author.Name}}</ion-card-subtitle>
   </ion-card-header>
   
-  <img class="recipeImage" [src]="Recipe.ImageURL">
+  <img class="recipeImage" [src]="Recipe.ImgURL">
 
   <ion-card-content>
     <ion-item class="align-vertical">

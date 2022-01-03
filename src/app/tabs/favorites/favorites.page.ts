@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
-import { Recipe } from '../recipe-page/recipe';
+import { Recipe } from '../../recipe';
 
 interface FavoriteRecipe{
   addedAt: Date,

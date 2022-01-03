@@ -7,9 +7,6 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { HomePageModule } from './home/home.module';
-import { ExplorePageModule } from './explore/explore.module';
-import { FavoritesPageModule } from './favorites/favorites.module';
 import { RecipePage } from './recipe-page/recipe-page.component';
 import { SwiperModule } from 'swiper/angular';
 import { ProfilePopoverComponent } from './profile-popover/profile-popover.component';
@@ -18,6 +15,10 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { RouterModule } from '@angular/router';
 import { RecipeGrid } from './recipe-grid/recipe-grid.component';
+import { ExplorePage } from './explore/explore.page';
+import { ExploreCardComponent } from './explore/explore-card-grid/explore-card.component';
+import { FavoritesPage } from './favorites/favorites.page';
+import { HomePage } from './home/home.page';
 
 @NgModule({
   imports: [
@@ -25,13 +26,22 @@ import { RecipeGrid } from './recipe-grid/recipe-grid.component';
     CommonModule,
     FormsModule,
     TabsPageRoutingModule,
-    HomePageModule,
-    ExplorePageModule,
-    FavoritesPageModule,
     SwiperModule,
     RouterModule
   ],
-  declarations: [TabsPage, SearchBarComponent, RecipeGrid, RecipeCardComponent, RecipePage, RecipeInstructionsComponent, ProfilePopoverComponent],
+  declarations: [
+    TabsPage,
+    SearchBarComponent,
+    RecipeGrid,
+    RecipeCardComponent,
+    RecipePage,
+    RecipeInstructionsComponent,
+    ProfilePopoverComponent,
+    HomePage,
+    ExplorePage,
+    ExploreCardComponent,
+    FavoritesPage
+  ],
   exports: [RecipePage, SearchBarComponent],
   providers: [
     {provide: TextToSpeech}

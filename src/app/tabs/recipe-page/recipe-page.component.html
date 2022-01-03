@@ -10,7 +10,7 @@
   <ion-grid>
     <ion-row>
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="center-vertical">
-        <img [src]="Recipe.ImageURL" class="recipe-img">
+        <img [src]="Recipe.ImgURL" class="recipe-img">
       </ion-col>
 
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="thingcolumn">
@@ -58,14 +58,13 @@
                       </ion-item>
                     </ion-col>
                     <ion-col>
-                      <ion-item>{{roundTo(ingredient.Quantity * Recipe.PortionSize / originalPortionSize, 1) + ingredient.QuantityType.Short}} {{ingredient.Name}}</ion-item>
+                      <ion-item>{{roundTo(ingredient.Quantity * Recipe.PortionSize / originalPortionSize, 1)}} {{ingredient.QuantityType.Short}} {{ingredient.Name}}</ion-item>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
               </ion-row>
 
             </ion-grid>
-
           </ng-template>
 
           <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
