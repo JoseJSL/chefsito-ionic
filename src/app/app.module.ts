@@ -18,6 +18,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideMenuComponent } from './core/side-menu/side-menu.component';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, SideMenuComponent],
@@ -34,7 +35,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
     provideFirestore(() => getFirestore()), 
     provideStorage(() => getStorage()),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CoreModule
   ],
   providers: [
     {provide: GooglePlus},
