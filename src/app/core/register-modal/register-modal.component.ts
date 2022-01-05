@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment.prod';
 export class RegisterModalComponent implements OnInit {
   public registerForm: FormGroup | undefined;
 
-  constructor(private builder: FormBuilder, private modCtrl: ModalController, private alertController: AlertController, private popoverCtrl: PopoverController) { }
+  constructor(private builder: FormBuilder, private modCtrl: ModalController, private alertController: AlertController) { }
 
   ngOnInit() {
     this.registerForm = this.builder.group({

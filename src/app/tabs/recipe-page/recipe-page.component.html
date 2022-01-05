@@ -2,7 +2,9 @@
   <ion-toolbar>
     <ion-back-button defaultHref="/app/home" slot="start"></ion-back-button>
     <ion-title>{{Recipe.Title}}</ion-title>
-    <ion-button fill="clear" slot="end"><ion-icon slot="icon-only" name="heart-outline"></ion-icon></ion-button>
+    <ion-button fill="clear" slot="end" (click)="addToFavorites()">
+      <ion-icon #favoriteIcon slot="icon-only" name="heart-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 

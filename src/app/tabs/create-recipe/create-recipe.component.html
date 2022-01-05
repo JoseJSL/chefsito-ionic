@@ -1,0 +1,179 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button defaultHref="/app/home" slot="start"></ion-back-button>
+    <ion-title>
+      <ion-input #Title (ionChange)="updateInputValue(recipeForm, Title)" name="Title" placeholder="Nombre de la receta" type="text"></ion-input>
+    </ion-title>
+    <ion-button slot="end" color="success" title="Crear receta" class="ion-margin-end" (click)="confirmRecipe();">
+      <ion-label color="dark">Crear</ion-label>
+      <ion-icon color="dark" slot="end" name="checkmark"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen="true" scrollY="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="center-vertical">
+        <ion-item button="true">
+          <img [src]="Recipe.ImgURL" class="recipe-img">
+        </ion-item>
+      </ion-col>
+
+      <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12">
+        <ion-segment #segmentSelector (ionChange)="segmentChanged($event, segments);" value="summary" class="recipe-parts">
+          <ion-segment-button value="summary">
+            <ion-label>Resúmen</ion-label>
+          </ion-segment-button>
+
+          <ion-segment-button value="steps">
+            <ion-label>Pasos</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <swiper #segments (slideChange)="sliderSwiped(segments, segmentSelector)">
+
+          <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
+            <ion-grid>
+              <ion-row>
+                <ion-col  class="tip">
+                  <ion-card color="light">
+                    <ion-icon name="time"></ion-icon>
+                    <ion-card-title>
+                      <ion-input 
+                        #TimeMin 
+                        (ionChange)="updateInputValue(recipeForm, TimeMin)" name="TimeMin" placeholder="Tiempo"></ion-input>
+                    </ion-card-title>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col class="tip">
+                  <ion-card color="light" [style]="'background: ' + RecipeData.Tips[1].Color">
+                    <ion-icon name="book"></ion-icon>
+                    <ion-card-title>
+                      <ion-select #Dificultad (ionChange)="updateDificultad(Dificultad)" cancelText="Cancelar" name="Difficulty" placeholder="Dificultad">
+                        <ion-select-option *ngFor="let dificultad of Dificultades" [value]="Dificultades.indexOf(dificultad)">{{dificultad}}</ion-select-option>
+                      </ion-select>
+                    </ion-card-title>
+                  </ion-card>
+                </ion-col>
+
+                <ion-col  class="tip">
+                  <ion-card color="light">
+                    <ion-icon [name]="RecipeData.Tips[2].Icon"></ion-icon>
+                    <ion-card-title>
+                      <ion-select 
+                        #utensilioIcon
+                        cancelText="Cancelar"
+                        (ionChange)="updateUtensilio(utensilioIcon)" 
+                        name="Utensilio" placeholder="Utensilio">
+                        <ion-select-option *ngFor="let icon of kitchenIcons" [value]="kitchenIcons.indexOf(icon)">{{icon.Display}}</ion-select-option>
+                      </ion-select>
+                    </ion-card-title>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-buttons class="max-width">
+                  <ion-button (click)="changePortionSize(-1);" color="primary"><ion-icon name="remove" slot="icon-only"></ion-icon></ion-button>
+                  <ion-label class="align-self-center"> Por porcion de: <ion-label color="primary">{{Recipe.PortionSize}}</ion-label></ion-label>
+                  <ion-button (click)="changePortionSize(1)" color="primary" class="align-self-end"><ion-icon name="add" slot="icon-only"></ion-icon></ion-button>
+                </ion-buttons>
+              </ion-row>
+  
+              <ion-row>
+                <ion-grid class="ingredient-list">
+                  <ion-row *ngFor="let ingredient of RecipeData.Ingredients">
+                    <ion-col size="auto">
+                      <ion-item color="dark">
+                        <ion-icon size="large" [name]="ingredient.Icon"></ion-icon>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col>
+                      <ion-item>{{ingredient.Quantity + ingredient.QuantityType.Short}} {{ingredient.Name}}</ion-item>
+                    </ion-col>
+                    <ion-col size="auto">
+                      <ion-item color="primary" button="true" (click)="RecipeData.Ingredients.splice(RecipeData.Ingredients.indexOf(ingredient), 1);">
+                        <ion-icon name="remove"></ion-icon>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+
+                  <form [formGroup]="ingredientForm" (keyup.enter)="addIngredient([Cantidad, Nombre], [IngredientIcon,Medida], [IngredientDisplay]);">
+                    <ion-row>
+                      <ion-col size="auto">
+                        <ion-select cancelText="Cancelar" value="help" (ionChange)="IngredientDisplay.name = IngredientIcon.value" (ionChange)="updateSelectValue(ingredientForm, IngredientIcon)" #IngredientIcon  name="IngredientIcon" style="display: none;">
+                          <ion-select-option *ngFor="let icon of foodIcons"[value]="icon.Source">{{icon.Display}}</ion-select-option>
+                        </ion-select>
+                        <ion-item (click)="IngredientIcon.open();" color="dark" button="true">
+                          <ion-icon #IngredientDisplay size="large" name="help"></ion-icon>
+                        </ion-item>
+                      </ion-col>
+  
+                      <ion-col size="2" class="center-vertical">
+                        <ion-input #Cantidad (ionChange)="updateInputValue(ingredientForm, Cantidad);" name="Cantidad" class="show-outline" type="number" min="1" placeholder="Cant"></ion-input>
+                      </ion-col>
+  
+                      <ion-col size="auto" class="center-vertical">
+                        <ion-select cancelText="Cancelar" #Medida (ionChange)="updateSelectValue(ingredientForm, Medida)" name="Medida" placeholder="Medida" class="show-outline">
+                          <ion-select-option *ngFor="let medida of Medidas" [value]="medida.Name + ',' + medida.Short">{{medida.Name}}</ion-select-option>
+                        </ion-select>
+                      </ion-col>
+  
+                      <ion-col class="center-vertical">
+                        <ion-input #Nombre (ionChange)="updateInputValue(ingredientForm, Nombre);" name="Nombre" class="show-outline ion-text-left" type="text" placeholder="Ingrediente"></ion-input>
+                      </ion-col>
+  
+                      <ion-col size="auto">
+                        <ion-item button="true" color="primary" (click)="addIngredient([Cantidad, Nombre], [IngredientIcon,Medida], [IngredientDisplay]);">
+                          <ion-icon name="add"></ion-icon>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                  </form>
+                </ion-grid>
+              </ion-row>
+
+            </ion-grid>
+          </ng-template>
+
+          <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
+            <ion-grid>
+              <ion-row *ngFor="let step of RecipeData.Steps" class="ion-margin-top">
+                <ion-col size="auto" class="counter">
+                  <ion-item color="primary">{{RecipeData.Steps.indexOf(step)+1}}</ion-item>
+                </ion-col>
+                <ion-col class="ion-text-justify">
+                  <ion-label>{{step}}</ion-label>
+                </ion-col>
+                <ion-col size="auto" class="counter">
+                  <ion-item (click)="RecipeData.Steps.splice(RecipeData.Steps.indexOf(step), 1)" button="true" color="primary">
+                    <ion-icon name="remove"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="auto" class="counter">
+                  <ion-item color="primary">{{RecipeData.Steps.length+1}}</ion-item>
+                </ion-col>
+
+                <ion-col class="ion-text-justify" (keyup.enter)="addStep(paso)">
+                  <ion-textarea #paso class="show-outline" fill="outline" placeholder="Descripción del paso"></ion-textarea>
+                </ion-col>
+                
+                <ion-col size="auto" class="counter">
+                  <ion-item button="true" color="primary" (click)="addStep(paso)">
+                    <ion-icon name="add"></ion-icon>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-template>
+        </swiper>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

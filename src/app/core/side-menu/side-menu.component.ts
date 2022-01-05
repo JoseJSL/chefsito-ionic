@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { defaultUser, User } from 'src/app/user';
 import { AuthService } from '../auth.service';
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SideMenuComponent implements OnInit {
   public currentUserData: User;
-  constructor(private auth: AuthService, private menuCtrl: MenuController) { }
+  constructor(private auth: AuthService, private menuCtrl: MenuController, private router: Router) { }
 
   async ngOnInit() {
     this.currentUserData = defaultUser;
@@ -32,5 +33,9 @@ export class SideMenuComponent implements OnInit {
     this.menuCtrl.close('homeMenu');
     this.menuCtrl.enable(false, 'homeMenu');
     this.auth.logout();
+  }
+
+  close(){
+    this.menuCtrl.close('homeMenu');
   }
 }

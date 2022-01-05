@@ -15,7 +15,12 @@ export interface RecipeData{
     Tips: Tip[]
 }
 
+export interface FavoriteRecipe{
+    addedAt: Date,
+}
+
 interface Author{
+    UID: string,
     Name: string,
     ImgURL: string
 }
@@ -48,6 +53,7 @@ interface Rating{
 
 export const defaultRecipe: Recipe = {
     Author: {
+        UID: '',
         Name: 'Chefsito',
         ImgURL: 'https://i.imgur.com/JgjqbN3.png',
     },
@@ -63,14 +69,23 @@ export const defaultRecipeData: RecipeData = {
     Ingredients: [],
     Ratings: [],
     Steps: [],
-    Tips: [],
+    Tips: [
+        {Icon: 'time', Description: '', Color: ''},
+        {Icon: 'book', Description: '', Color: ''},
+        {Icon: 'help', Description: '', Color: ''},
+    ],
 }
 
-// <color name="difficultyVeryHard">#7A0000</color>
-// <color name="difficultyHard">#DF1A1A</color>
-// <color name="difficultyKindaHard">#FF5722</color>
-// <color name="difficultyNormal">#FF9800</color>
-// <color name="difficultyKindaEasy">#FFEB3B</color>
-// <color name="difficultyEasy">#8BC34A</color>
-// <color name="difficultyVeryEasy">#4CAF50</color>
-// <color name="difficultyBeginner">#00BCD4</color>
+export const defaultRecipeCreator: Recipe = {
+    Author: {
+        UID: '',
+        Name: '',
+        ImgURL: '',
+    },
+    AvgRating: 0,
+    ImgURL: 'assets/food-tray.jpg',
+    PortionSize: 1,
+    TimeMin: '0',
+    Title: 'Nombre de la receta',
+    UID: '',
+}

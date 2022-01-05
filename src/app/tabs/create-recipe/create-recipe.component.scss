@@ -54,6 +54,10 @@ ion-buttons{
     align-items: center;
 }
 
+.show-outline{
+    border: 1px solid #f1f1f1 !important;
+}
+
 @media (min-width: 768px){  
     swiper{
         //background: white !important;

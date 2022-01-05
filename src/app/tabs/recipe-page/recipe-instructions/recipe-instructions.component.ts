@@ -43,6 +43,7 @@ export class RecipeInstructionsComponent implements OnInit {
             this.webSpeech.init({
               volume: 1,
               lang: 'es-AR',
+              voice: 'Microsoft Elena Online (Natural) - Spanish (Argentina)',
               rate: 1,
               pitch: 1,
               splitSentences: true,

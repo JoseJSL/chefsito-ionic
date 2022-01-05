@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { defaultRecipe, defaultRecipeData, Recipe, RecipeData } from '../../recipe';
-import { IonSegment } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { defaultRecipe, defaultRecipeData, FavoriteRecipe, Recipe, RecipeData } from '../../recipe';
+import { IonIcon, IonSegment } from '@ionic/angular';
 import { SwiperComponent } from 'swiper/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
   styleUrls: ['./recipe-page.component.scss'],
 })
+
 export class RecipePage implements OnInit {
+  @ViewChild('favoriteIcon') favoriteIcon: IonIcon;
   public Recipe: Recipe = defaultRecipe;
   public RecipeData: RecipeData = defaultRecipeData;
   public currentSegment: number = 0;
   public originalPortionSize: number;
 
-  constructor(private afs: AngularFirestore ,private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(private auth: AngularFireAuth,private afs: AngularFirestore ,private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activeRoute.params.subscribe(params => {
@@ -25,9 +28,16 @@ export class RecipePage implements OnInit {
           this.Recipe = recipe;
           this.Recipe.UID = params.uid;
           this.originalPortionSize = this.Recipe.PortionSize;
-          
           this.afs.collection('Recipe').doc(params.uid).collection<RecipeData>('Data').doc('Values').valueChanges().subscribe(recipeData => {
             this.RecipeData = recipeData;
+          });
+
+          this.auth.user.subscribe(user => {
+            this.afs.collection('User').doc(user.uid).collection('Favorites').doc(this.Recipe.UID).get().subscribe(favoriteRecipe => {
+              if(favoriteRecipe.exists){
+                this.favoriteIcon.name = 'heart';
+              }
+            });
           });
         } else {
           this.router.navigate(['app', 'home']);
@@ -80,5 +90,19 @@ export class RecipePage implements OnInit {
 
   startAssistant(){
     this.router.navigate(['/app', 'recipe', this.Recipe.UID, 'steps']);
+  }
+
+  addToFavorites(){
+    this.auth.user.subscribe(user => {
+      this.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').doc(this.Recipe.UID).get().subscribe(favoriteRecipe => {
+        if(favoriteRecipe.exists){
+          this.favoriteIcon.name = 'heart-outline';
+          favoriteRecipe.ref.delete();
+        } else {
+          this.favoriteIcon.name = 'heart';
+          favoriteRecipe.ref.set({addedAt: new Date()});
+        }
+      });
+    });
   }
 }

@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth.service';
-import { Recipe } from '../../recipe';
-
-interface FavoriteRecipe{
-  addedAt: Date,
-}
+import { FavoriteRecipe, Recipe } from '../../recipe';
 
 @Component({
   selector: 'app-favorites-tab',
@@ -18,19 +14,19 @@ export class FavoritesPage implements OnInit{
 
   ngOnInit() {
     this.FavoritedRecipes = [];
-    //Todo esto es funcional. No borrar
-    // this.auth.auth.user.subscribe(user => {
-    //   this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorite').valueChanges({idField: 'uid'}).subscribe(favoritesCollection => {
-    //     favoritesCollection.forEach(favRecipe => {
-    //       this.auth.afs.collection<Recipe>('Recipe').doc(favRecipe.uid).valueChanges().subscribe(recipe =>{
-    //         if(recipe){
-    //           var i = this.FavoritedRecipes.indexOf(recipe);
-    //           i = (i >= 0) ? i: this.FavoritedRecipes.length;
-    //           this.FavoritedRecipes[i] = recipe;
-    //         }
-    //       });
-    //     });
-    //   });
-    // });
+    this.auth.auth.user.subscribe(user => {
+      this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'uid'}).subscribe(favoritesCollection => {
+        var favRecipes: Recipe[] = [];
+        favoritesCollection.forEach(favRecipe => {
+          this.auth.afs.collection<Recipe>('Recipe').doc(favRecipe.uid).valueChanges().subscribe(recipe =>{
+            if(recipe){
+              recipe.UID = favRecipe.uid
+              favRecipes.push(recipe);
+            }
+          });
+        });
+        this.FavoritedRecipes = favRecipes;
+      });
+    });
   }
 }
