@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { IonRefresher } from '@ionic/angular';
 import { Recipe } from '../../recipe';
 
 @Component({
@@ -12,15 +13,21 @@ export class HomePage implements OnInit{
   constructor(private afs: AngularFirestore) {}
 
   ngOnInit() {
+    this.updateRecipes();
+  }
+
+  async updateRecipes(){
     this.Recipes = [];
-    this.afs.collection<Recipe>('Recipe').valueChanges({idField: 'UID'}).subscribe(recipeCollection => {
-      var newRecipes: Recipe[] = [];
+    this.afs.collection<Recipe>('Recipe').get().subscribe(recipeCollection => {
       recipeCollection.forEach(recipe => {
-        newRecipes.push(recipe);
+        this.Recipes.push(recipe.data());
       });
-      this.Recipes = newRecipes;
     });
-    console.log(this.Recipes);
+  }
+
+  doRefresh(refresher: IonRefresher){
+    this.updateRecipes()
+    refresher.complete();
   }
 
 }

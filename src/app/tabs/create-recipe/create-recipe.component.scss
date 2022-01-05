@@ -2,9 +2,13 @@ ion-content{
     transition: 1s;
 }
 
-.recipe-img{
-    width: 100%;
-    object-fit: cover;
+.image-container{
+    height: 477px;
+    .recipe-img{
+        margin: 0 auto;
+        height: 477px;
+        object-fit: cover;
+    }
 }
 
 .align-self-center{

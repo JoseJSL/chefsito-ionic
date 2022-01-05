@@ -4,5 +4,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="doRefresh(refresher)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <app-recipe-grid [Recipes]="FavoritedRecipes"></app-recipe-grid>
 </ion-content>

@@ -7,6 +7,8 @@
         <entry key="..\:/no-space/chefsito-mobile/android/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1638888888888889" />
         <entry key="..\:/no-space/chefsito-mobile/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1638888888888889" />
         <entry key="..\:/no-space/chefsito-mobile/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1638888888888889" />
+        <entry key="..\:/no-space/chefsito-mobile/android/capacitor-cordova-android-plugins/src/main/res/layout/actionbar_custom_view_done_discard.xml" value="0.1" />
+        <entry key="..\:/no-space/chefsito-mobile/android/capacitor-cordova-android-plugins/src/main/res/layout/multiselectorgrid.xml" value="0.22" />
       </map>
     </option>
   </component>

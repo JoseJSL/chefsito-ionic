@@ -14,11 +14,13 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule, PERSISTENCE, USE_DEVICE_LANGUAGE } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideMenuComponent } from './core/side-menu/side-menu.component';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { CoreModule } from './core/core.module';
+
 
 @NgModule({
   declarations: [AppComponent, SideMenuComponent],
@@ -27,9 +29,10 @@ import { CoreModule } from './core/core.module';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)), 
     provideAuth(() => getAuth()), 
     provideFirestore(() => getFirestore()), 

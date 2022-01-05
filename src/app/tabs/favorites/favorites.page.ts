@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IonRefresher } from '@ionic/angular';
 import { AuthService } from 'src/app/core/auth.service';
 import { FavoriteRecipe, Recipe } from '../../recipe';
 
@@ -13,6 +14,10 @@ export class FavoritesPage implements OnInit{
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.updateRecipes();
+  }
+
+  updateRecipes(){
     this.FavoritedRecipes = [];
     this.auth.auth.user.subscribe(user => {
       this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'uid'}).subscribe(favoritesCollection => {
@@ -28,5 +33,10 @@ export class FavoritesPage implements OnInit{
         this.FavoritedRecipes = favRecipes;
       });
     });
+  }
+
+  doRefresh(refresher: IonRefresher){
+    this.updateRecipes()
+    refresher.complete();
   }
 }
