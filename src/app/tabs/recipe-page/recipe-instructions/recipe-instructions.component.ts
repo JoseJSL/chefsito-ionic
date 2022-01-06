@@ -42,17 +42,22 @@ export class RecipeInstructionsComponent implements OnInit {
             this.webSpeech = new Speech();
             this.webSpeech.init({
               volume: 1,
-              lang: 'es-AR',
-              voice: 'Microsoft Elena Online (Natural) - Spanish (Argentina)',
+              lang: 'es-MX',
               rate: 1,
               pitch: 1,
               splitSentences: true,
-            }).then(() => {
+            }).then((e) => {
               if(this.justLoaded) {
-                if(this.justLoaded) {
-                  this.webSpeech.cancel();
-                  this.webSpeech.speak({text: this.Steps[0]});
+                for(var i = 0; i < e.voices.length; i ++){
+                  if(e.voices[i].lang.includes('es-')){
+                    if(e.voices[i].voiceURI.includes('(Natural)')){
+                      this.webSpeech.setVoice(e.voices[i].voiceURI);
+                      break;
+                    }
+                  } 
                 }
+                this.webSpeech.cancel();
+                this.webSpeech.speak({text: this.Steps[0]});
                 this.justLoaded = false;
               }
             });
@@ -66,10 +71,9 @@ export class RecipeInstructionsComponent implements OnInit {
 
   readStep(stepSwiper: SwiperComponent){
     const n = stepSwiper.swiperRef.realIndex;
-
     if(this.platform.is('android')){
       this.androidSpeech.stop();      
-      this.androidSpeech.speak({locale: 'es-AR', text: this.Steps[n]});
+      this.androidSpeech.speak({locale: 'es-MX', text: this.Steps[n]});
     } else {
       this.webSpeech.cancel();
       this.webSpeech.speak({text: this.Steps[n]});

@@ -192,8 +192,7 @@ export class CreateRecipeComponent implements OnInit {
     this.RecipeData.Tips[2].Icon = this.kitchenIcons[select.value].Source;
     this.RecipeData.Tips[2].Description = this.kitchenIcons[select.value].Display;
     this.RecipeData.Tips[2].Color = '';
-    this.recipeForm.controls[select.name].setValue(Dificultades[select.value]);
-
+    this.recipeForm.controls[select.name].setValue(kitchenIcons[select.value].Display);
   }
 
   chooseImage(desktopInput: HTMLInputElement){
