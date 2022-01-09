@@ -15,10 +15,8 @@ dependencies {
     implementation project(':capacitor-status-bar')
     implementation "com.google.android.gms:play-services-auth:15.0.1"
     implementation "com.google.android.gms:play-services-identity:15.0.1"
-    implementation "com.android.support:appcompat-v7:27.+"
 }
-apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/ignorelinterrors.gradle"
-apply from: "../../node_modules/cordova-plugin-telerik-imagepicker/src/android/androidtarget.gradle"
+
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

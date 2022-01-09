@@ -6,8 +6,6 @@ import { defaultRecipeCreator, defaultRecipeData, Recipe, RecipeData } from 'src
 import { User } from 'src/app/user';
 import { SwiperComponent } from 'swiper/angular';
 import { CustomIcon, foodIcons, kitchenIcons, Medida, Medidas, Dificultades, DifficultyColors } from './assets';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { File } from '@ionic-native/file/ngx';
 import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
@@ -29,8 +27,6 @@ export class CreateRecipeComponent implements OnInit {
   public Dificultades: string[] = Dificultades;
   constructor(
     private fireStorage: AngularFireStorage, 
-    private imagePicker: ImagePicker, 
-    private androidFile: File, 
     private platform: Platform, 
     private builder: FormBuilder,
     private authService: AuthService,
@@ -197,18 +193,7 @@ export class CreateRecipeComponent implements OnInit {
 
   chooseImage(desktopInput: HTMLInputElement){
     if(this.platform.is('android')){
-      this.imagePicker.getPictures({
-        maximumImagesCount: 1, 
-        message:'Elije una imagen para tu receta', 
-        title:'Elije una imagen para tu receta'})
-      .then(async picture => {
-        const nameStart = picture[0].lastIndexOf('/') + 1;
-        const path = picture[0].substring(0, nameStart);
-        const fileName = picture[0].substring(nameStart);
-        const file = await this.androidFile.readAsDataURL(path, fileName);
-        this.Recipe.ImgURL = file;
-        console.log(file);
-      });
+
     } else {
       desktopInput.click();
     }

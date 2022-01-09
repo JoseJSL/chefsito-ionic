@@ -20,8 +20,6 @@ import { FavoritesPage } from './favorites/favorites.page';
 import { HomePage } from './home/home.page';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { File } from '@ionic-native/file/ngx'
 import { IonicRatingModule } from 'ionic-rating';
 import { ChefsitoComponent } from './chefsito/chefsito.component';
 
@@ -54,8 +52,6 @@ import { ChefsitoComponent } from './chefsito/chefsito.component';
   exports: [RecipePage, SearchBarComponent],
   providers: [
     {provide: TextToSpeech},
-    {provide: ImagePicker},
-    {provide: File},
   ]
 })
 export class TabsPageModule {}
