@@ -43,10 +43,12 @@ ion-buttons{
     width: 100%;
 }
 
-.tip{
+.tip{        
     ion-card{
         padding-top: 1vh;
         padding-bottom: 1vh;
+        height: 100%;
+        margin: 0;
     }
 
     ion-icon{
@@ -54,7 +56,6 @@ ion-buttons{
         height: 8vmin;
     }
 }
-
 .counter{
     display: flex;
     align-items: center;
@@ -73,7 +74,36 @@ ion-buttons{
     border: 1px solid #f1f1f1 !important;
 }
 
-@media (min-width: 768px){  
+
+.ingredient-add{
+    ion-icon{
+        margin: 0 auto;
+    }
+}
+
+
+@media (max-width: 768px){
+    .ingredient-quantity{
+        width: 100%;
+    }
+    
+    .ingredient-name{
+        width: 100% !important;
+    
+        ion-input{
+            width: 100% !important;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+
+    .recipe-img{
+        margin: 0 auto;
+        height: 477px;
+        object-fit: cover;
+    }
+
     swiper{
         //background: white !important;
         max-height: 477px !important;

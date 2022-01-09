@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button defaultHref="/app/home" slot="start"></ion-back-button>
-    <ion-title>Mi perfíl</ion-title>
+    <ion-title>Perfíl de {{User.username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,9 +12,6 @@
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12"> <!-- Datos del usuario -->
         <ion-card>
           <ion-card-header>
-            <ion-button fill="clear" color="dark" (click)="enableEdit(editIcon, [username, firstName, lastName]);">
-              <ion-icon #editIcon slot="icon-only" name="pencil"></ion-icon>
-            </ion-button>
             <ion-avatar>
               <img [src]="User.imgURL">
             </ion-avatar>
@@ -32,25 +29,17 @@
               <ion-label position="floating">Apellido(s)</ion-label>
               <ion-input [value]="User.lastName"></ion-input>
             </ion-item>
-            <ion-item class="ion-margin-bottom" button="true" disabled="true">
-              <ion-label position="floating">Correo</ion-label>
-              <ion-input [value]="User.email"></ion-input>
-            </ion-item>
-            <ion-item class="ion-margin-bottom" button="true" disabled="true">
-              <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password" value="********"></ion-input>
-            </ion-item>
           </ion-card-content>
         </ion-card>
       </ion-col>
 
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12">
-        <ion-item-divider class="ion-padding ion-text-center"><ion-title>Mis favoritos</ion-title></ion-item-divider>
+        <ion-item-divider class="ion-padding ion-text-center"><ion-title>Favoritos del chefsito</ion-title></ion-item-divider>
         <ion-list class="ion-text-center">
           <ion-item>
             <div *ngIf="!showFavorites" class="ion-text-center width-100">
               <ion-icon class="ion-padding" size="large" name="heart-dislike"></ion-icon>
-              <div class="ion-padding-bottom">Aún no tienes recetas favoritas.</div>
+              <div class="ion-padding-bottom">{{User.username}} no tiene recetas favoritas</div>
             </div>
   
             <swiper #favRecipesSwiper [config]="swiperConfig" *ngIf="showFavorites">
@@ -60,12 +49,12 @@
             </swiper>
           </ion-item>
 
-          <ion-item-divider class="ion-padding"><ion-title>Mis recetas</ion-title></ion-item-divider>
+          <ion-item-divider class="ion-padding"><ion-title>Recetas del chefsito</ion-title></ion-item-divider>
 
           <ion-item>
             <div *ngIf="!showUserRecipes" class="ion-text-center width-100">
-              <div class="ion-padding-top">Parece que aún no has creado ninguna receta.</div>
-              <ion-button size="large" expand="full"fill="clear" routerLink="/app/create-recipe">¡Animate a crear una!</ion-button>
+              <ion-icon class="ion-padding" size="large" name="recipe-not-found"></ion-icon>
+              <div class="ion-padding-bottom">{{User.username}} no ha creado ninguna receta</div>
             </div>
 
             <swiper #userRecipesSwiper [config]="swiperConfig" *ngIf="showUserRecipes">

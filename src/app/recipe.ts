@@ -15,14 +15,22 @@ export interface RecipeData{
     Tips: Tip[]
 }
 
-export interface FavoriteRecipe{
-    addedAt: Date,
+export interface Rating{
+    Rating: number,
+    Comment: string,
+    User: string,
+    UserImgURL: string;
+    UserUID;
 }
 
-interface Author{
+export interface Author{
     UID: string,
     Name: string,
     ImgURL: string
+}
+
+export interface FavoriteRecipe{
+    addedAt: Date,
 }
 
 interface Tip{
@@ -44,18 +52,11 @@ interface QuantityType{
     Short: string
 }
 
-interface Rating{
-    Rating: number,
-    User: string,
-    UserImgURL: string,
-}
-//https://i.imgur.com/XDyo0Hu.png
-
 export const defaultRecipe: Recipe = {
     Author: {
         UID: '',
-        Name: 'Chefsito',
-        ImgURL: 'https://i.imgur.com/JgjqbN3.png',
+        Name: '',
+        ImgURL: 'assets/user-default.png',
     },
     AvgRating: 0,
     ImgURL: '',

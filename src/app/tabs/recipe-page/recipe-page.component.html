@@ -12,6 +12,13 @@
   <ion-grid>
     <ion-row>
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="center-vertical">
+        <a class="author-info" [routerLink]="['/app', 'chefsito', Recipe.Author.UID]">
+          <ion-avatar class="align-end ion-margin">
+            <ion-img [src]="Recipe.Author.ImgURL"></ion-img>
+          </ion-avatar>
+          <ion-title>{{Recipe.Author.Name}}</ion-title>
+        </a>
+
         <img [src]="Recipe.ImgURL" class="recipe-img">
       </ion-col>
 
@@ -26,7 +33,7 @@
           </ion-segment-button>
 
           <ion-segment-button value="comments">
-            <ion-label>Comentarios</ion-label>
+            <ion-label>Calificaciones</ion-label>
           </ion-segment-button>
         </ion-segment>
 
@@ -35,7 +42,7 @@
           <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>
               <ion-row>
-                <ion-col *ngFor="let tip of RecipeData.Tips" class="tip">
+                <ion-col size="4" *ngFor="let tip of RecipeData.Tips" class="tip">
                   <ion-card [style]="'background-color:' + tip.Color" color="light">
                     <ion-icon [name]="tip.Icon"></ion-icon>
                     <ion-card-title>{{tip.Description}}</ion-card-title>
@@ -83,7 +90,44 @@
           </ng-template>
 
           <ng-template class="slide" swiperSlide> <!-- Segmento de comentarios (ratings) -->
-            <ion-label>very kul</ion-label>
+            <ion-grid>
+              <ion-row class="center-vertical show-outline">
+                <ion-col class="rating-description">
+                  <div class="rating-user">Comparte tu opinión sobre esta receta.</div>
+                  <div><ion-textarea #rateComment></ion-textarea></div>
+                </ion-col>
+                <ion-col size="auto">
+                  <div>
+                    <ion-rating #rateNumber></ion-rating>
+                  </div>
+                  <div>
+                    <ion-button (click)="tryRate(rateComment, rateNumber)" expand="full">Calificar</ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-item-divider></ion-item-divider>
+              <ion-row *ngFor="let rating of RecipeData.Ratings" class="center-vertical">
+                <ion-col size="auto">
+                  <ion-avatar>
+                    <img [src]="rating.UserImgURL">
+                  </ion-avatar>
+                </ion-col>
+                
+                <ion-col class="rating-description">
+                  <a class="rating-user" [routerLink]="['/app', 'chefsito', rating.UserUID]">{{rating.User}}</a>
+                  <div *ngIf="rating.Comment" class="rating-comment">{{rating.Comment}}</div>
+                </ion-col>
+
+                <ion-col size="auto">
+                  <div class="rating-number center-vertical ion-padding-end">
+                    <ion-icon name="star" style="color: gold;"></ion-icon>
+                    <div class="icon-description rating-number" style="color: gold;">{{rating.Rating}}</div>
+                  </div>
+                </ion-col>
+                
+                <ion-item-divider></ion-item-divider>
+              </ion-row>
+            </ion-grid>
           </ng-template>
         </swiper>
       </ion-col>

@@ -1,19 +1,37 @@
-.recipe-img{
+.recipe-img{ 
     margin: 0 auto;
     height: 100%;
     object-fit: cover;
 }
 
-@media only screen and (min-width: 768px) and (min-height: 600px) {
-    .recipe-img{
-        margin: 0 auto;
-        height: 477px;
-        object-fit: cover;
+.author-info{
+    height: auto;
+    color: #F1F1F1;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 1.5vw;
+    right: 0;
+    
+    ion-avatar{
+        box-shadow: 1px 1px 2px black, 0 0 0.1em black, 0 0 0.2em black;
+    }
+
+    ion-title{
+        text-shadow: 1px 1px 2px black, 0 0 0.1em black, 0 0 0.2em black;
     }
 }
 
+.author-info:hover{
+    transition: 0.25s;
+    background: rgba(0, 0, 0, 0.2);
+}
+
 ion-content{
-    transition: 1s;
+    transition: 1s ease-in-out;
 }
 
 
@@ -38,10 +56,12 @@ ion-buttons{
     width: 100%;
 }
 
-.tip{
+.tip{        
     ion-card{
         padding-top: 1vh;
         padding-bottom: 1vh;
+        height: 100%;
+        margin: 0;
     }
 
     ion-icon{
@@ -64,9 +84,46 @@ ion-buttons{
     align-items: center;
 }
 
-@media (min-width: 768px){  
+.rating-description{
+    text-align: left;
+    width: 0;
+
+    .rating-user{
+        font-size: 3vmin;
+        color: gray;
+        transition: 0.25s;
+    }
+
+    .rating-user:hover{
+        color: #FF0000 !important;
+        cursor: pointer;
+    }
+
+    .rating-comment{
+        font-size: 3.5vmin;
+    }
+}
+
+.rating-number{
+    font-size: 4vmin;
+    ion-icon{
+        margin-right: 1vmin;
+    }
+}
+
+
+.show-outline{
+    border: 1px solid #f1f1f1 !important;
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+    .recipe-img{
+        margin: 0 auto;
+        height: 477px;
+        object-fit: cover;
+    }
+
     swiper{
-        //background: white !important;
         max-height: 477px !important;
         overflow-y: auto !important;
     }

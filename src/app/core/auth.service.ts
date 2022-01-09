@@ -110,18 +110,18 @@ export class AuthService {
   }
 
   async loginWithGooglePlus(){
-    const popup = await this.loadingController.create({message: 'Ingresando...'});
-    popup.present()
-    await this.googlePlus.login({scope: 'https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile', webClientId: environment.googleWebClientID})
+
+    this.googlePlus.login({scope: 'https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/userinfo.profile', webClientId: environment.googleWebClientID})
       .then(async (response) => {
+        const popup = await this.loadingController.create({message: 'Ingresando...'});
+        popup.present()
         const { idToken, accessToken } = response;
         await this.onGooglePlusLogin(idToken, accessToken);
         popup.dismiss();
-        this.router.navigate(['app', 'home']);
+        this.router.navigate(['/app', 'home']);
       })
-      .catch(() => {
-        popup.message = "Operación cancelada...";
-        popup.dismiss();
+      .catch((e) => {
+        console.log(e);
       });
   }
 
@@ -171,8 +171,9 @@ export class AuthService {
     popup.present()
 
     if(this.platform.is('android')){
-      await this.googlePlus.disconnect();
+      this.googlePlus.disconnect();
     }
+
     await this.auth.signOut();
     popup.dismiss()
     this.router.navigate(['/welcome']);

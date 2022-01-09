@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { File } from '@ionic-native/file/ngx'
+import { IonicRatingModule } from 'ionic-rating';
+import { ChefsitoComponent } from './chefsito/chefsito.component';
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import { File } from '@ionic-native/file/ngx'
     TabsPageRoutingModule,
     SwiperModule,
     RouterModule,
+    IonicRatingModule
   ],
   declarations: [
     TabsPage,
@@ -46,6 +49,7 @@ import { File } from '@ionic-native/file/ngx'
     FavoritesPage,
     ProfileComponent,
     CreateRecipeComponent,
+    ChefsitoComponent
   ],
   exports: [RecipePage, SearchBarComponent],
   providers: [

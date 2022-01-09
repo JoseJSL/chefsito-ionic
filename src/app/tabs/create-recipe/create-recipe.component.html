@@ -38,7 +38,7 @@
           <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>
               <ion-row>
-                <ion-col  class="tip">
+                <ion-col size="6" sizeSm="4"class="tip">
                   <ion-card color="light">
                     <ion-icon name="time"></ion-icon>
                     <ion-card-title>
@@ -49,7 +49,7 @@
                   </ion-card>
                 </ion-col>
 
-                <ion-col class="tip">
+                <ion-col size="6" sizeSm="4" class="tip">
                   <ion-card color="light" [style]="'background: ' + RecipeData.Tips[1].Color">
                     <ion-icon name="book"></ion-icon>
                     <ion-card-title>
@@ -60,7 +60,7 @@
                   </ion-card>
                 </ion-col>
 
-                <ion-col  class="tip">
+                <ion-col size="12" sizeSm="4" class="tip">
                   <ion-card color="light">
                     <ion-icon [name]="RecipeData.Tips[2].Icon"></ion-icon>
                     <ion-card-title>
@@ -73,7 +73,7 @@
                       </ion-select>
                     </ion-card-title>
                   </ion-card>
-                </ion-col>I
+                </ion-col>
               </ion-row>
 
               <ion-row>
@@ -121,27 +121,27 @@
                         </ion-item>
                       </ion-col>
   
-                      <ion-col size="2" class="center-vertical">
-                        <ion-input #Cantidad (ionChange)="updateInputValue(ingredientForm, Cantidad);" name="Cantidad" class="show-outline" type="number" min="1" placeholder="Cant"></ion-input>
+                      <ion-col size="4" sizeSm="" class="center-vertical">
+                        <ion-input #Cantidad (ionChange)="updateInputValue(ingredientForm, Cantidad);" name="Cantidad" class="show-outline" type="number" min="1" placeholder="Cantidad"></ion-input>
                       </ion-col>
   
-                      <ion-col size="auto" class="center-vertical">
+                      <ion-col size="5" sizeSm="" class="center-vertical">
                         <ion-select 
                           #Medida
                           name="Medida"
                           cancelText="Cancelar" 
                           (ionChange)="updateSelectValue(ingredientForm, Medida)" 
                           placeholder="Medida" 
-                          class="show-outline">
+                          class="show-outline ingredient-quantity">
                           <ion-select-option *ngFor="let medida of Medidas" [value]="medida.Name + ',' + medida.Short">{{medida.Name}}</ion-select-option>
                         </ion-select>
                       </ion-col>
   
-                      <ion-col class="center-vertical">
+                      <ion-col size="auto" class="center-vertical ingredient-name">
                         <ion-input #Nombre (ionChange)="updateInputValue(ingredientForm, Nombre);" name="Nombre" class="show-outline ion-text-left" type="text" placeholder="Ingrediente"></ion-input>
                       </ion-col>
   
-                      <ion-col size="auto">
+                      <ion-col class="ingredient-add">
                         <ion-item button="true" color="primary" (click)="addIngredient([Cantidad, Nombre], [IngredientIcon,Medida], [IngredientDisplay]);">
                           <ion-icon name="add"></ion-icon>
                         </ion-item>

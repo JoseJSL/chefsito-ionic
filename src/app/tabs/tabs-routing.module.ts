@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { ChefsitoComponent } from './chefsito/chefsito.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { ExplorePage } from './explore/explore.page';
 import { FavoritesPage } from './favorites/favorites.page';
@@ -13,7 +14,13 @@ import { TabsPage } from './tabs.page';
 const redirectInToLogin = () => redirectUnauthorizedTo(['welcome']);
 
 const routes: Routes = [
-    {
+  {
+    path: 'app/chefsito/:uid',
+    canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: redirectInToLogin},
+    component: ChefsitoComponent,
+  },
+  {
     path: 'app/create-recipe',
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: redirectInToLogin},

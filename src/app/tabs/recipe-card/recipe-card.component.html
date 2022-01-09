@@ -1,4 +1,4 @@
-<ion-card routerLink="/app/recipe/{{Recipe.UID}}">
+<ion-card class="main-recipe-card" routerLink="/app/recipe/{{Recipe.UID}}">
   <ion-card-header class="align-vertical">
     <ion-avatar class="align-end">
       <ion-img [src]="Recipe.Author.ImgURL"></ion-img>
@@ -18,7 +18,6 @@
         <ion-icon name="time" style="color: #FFFFFF;"></ion-icon>
         <div class="icon-description">{{Recipe.TimeMin}}</div>
       </ion-item> 
-
       <ion-item class="align-end">
         <ion-icon name="star" style="color: gold;"></ion-icon>
         <div class="icon-description" style="color: gold;">{{Recipe.AvgRating}}</div>

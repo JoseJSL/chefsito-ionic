@@ -39,18 +39,27 @@ ion-segment-button{
     text-transform: none !important;
 }
   
-  
+a{
+    text-decoration: none !important;
+}
 
 //Para los modals
-.loginModal{
-    @media only screen and (min-width: 768px) and (min-height: 600px) {
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+    .loginModal{
         .modal-wrapper{
             width: 55vh;
         }
-
+    
         img{
             display: none;
         }
+    }
+}
+
+@media (max-width: 768px){
+    .main-recipe-card{
+        --ripple-color: transparent;
     }
 }
 
