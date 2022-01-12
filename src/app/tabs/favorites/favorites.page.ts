@@ -18,14 +18,14 @@ export class FavoritesPage implements OnInit{
   }
 
   updateRecipes(){
-    this.FavoritedRecipes = [];
     this.auth.auth.user.subscribe(user => {
-      this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'uid'}).subscribe(favoritesCollection => {
-        favoritesCollection.forEach(favRecipe => {
-          this.auth.afs.collection<Recipe>('Recipe').doc(favRecipe.uid).valueChanges().subscribe(recipe =>{
-            this.FavoritedRecipes.push(recipe);
+      this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'id'}).subscribe(favorites => {
+        this.FavoritedRecipes = [];
+        favorites.forEach(fav => {
+          this.auth.afs.collection<Recipe>('Recipe').doc(fav.id).get().subscribe(recipe => {
+            this.FavoritedRecipes.push(recipe.data());
           });
-        });
+        })
       });
     });
   }
