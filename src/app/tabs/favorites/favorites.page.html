@@ -7,5 +7,11 @@
   <ion-refresher #refresher slot="fixed" (ionRefresh)="doRefresh(refresher)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <app-recipe-grid [Recipes]="FavoritedRecipes"></app-recipe-grid>
+
+  <div *ngIf="!showFavorites" class="no-favorites">
+    <ion-icon class="ion-padding" name="heart-dislike"></ion-icon>
+    <div class="ion-padding-bottom">Aún no tienes recetas favoritas.</div>
+  </div>
+
+  <app-recipe-grid *ngIf="showFavorites" [Recipes]="FavoritedRecipes"></app-recipe-grid>
 </ion-content>

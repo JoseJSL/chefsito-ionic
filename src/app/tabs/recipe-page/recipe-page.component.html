@@ -37,9 +37,9 @@
           </ion-segment-button>
         </ion-segment>
 
-        <swiper #segments (slideChange)="sliderSwiped(segments, segmentSelector)">
+        <swiper [slideActiveClass]="'recipe-slide'" #segments (slideChange)="sliderSwiped(segments, segmentSelector)">
 
-          <ng-template class="slide" swiperSlide=""> <!-- Segmento de resúmen -->
+          <ng-template swiperSlide=""> <!-- Segmento de resúmen -->
             <ion-grid>
               <ion-row>
                 <ion-col size="4" *ngFor="let tip of RecipeData.Tips" class="tip">
@@ -76,7 +76,7 @@
             </ion-grid>
           </ng-template>
 
-          <ng-template class="slide" swiperSlide> <!-- Segmento de pasos -->
+          <ng-template swiperSlide> <!-- Segmento de pasos -->
             <ion-grid>
               <ion-row *ngFor="let step of RecipeData.Steps" class="ion-margin-top">
                 <ion-col size="auto" class="counter">
@@ -89,11 +89,11 @@
             </ion-grid>
           </ng-template>
 
-          <ng-template class="slide" swiperSlide> <!-- Segmento de comentarios (ratings) -->
+          <ng-template swiperSlide> <!-- Segmento de calificaciones (ratings) -->
             <ion-grid>
               <ion-row class="center-vertical show-outline">
                 <ion-col class="rating-description">
-                  <div class="rating-user">Comparte tu opinión sobre esta receta.</div>
+                  <div class="rating-suggest">Comparte tu opinión sobre esta receta.</div>
                   <div><ion-textarea #rateComment></ion-textarea></div>
                 </ion-col>
                 <ion-col size="auto">
@@ -105,28 +105,44 @@
                   </div>
                 </ion-col>
               </ion-row>
-              <ion-item-divider></ion-item-divider>
-              <ion-row *ngFor="let rating of RecipeData.Ratings" class="center-vertical">
-                <ion-col size="auto">
-                  <ion-avatar>
-                    <img [src]="rating.UserImgURL">
-                  </ion-avatar>
-                </ion-col>
-                
-                <ion-col class="rating-description">
-                  <a class="rating-user" [routerLink]="['/app', 'chefsito', rating.UserUID]">{{rating.User}}</a>
-                  <div *ngIf="rating.Comment" class="rating-comment">{{rating.Comment}}</div>
-                </ion-col>
 
-                <ion-col size="auto">
-                  <div class="rating-number center-vertical ion-padding-end">
-                    <ion-icon name="star" style="color: gold;"></ion-icon>
-                    <div class="icon-description rating-number" style="color: gold;">{{rating.Rating}}</div>
+              <ion-item-divider></ion-item-divider>
+
+              <div *ngIf="!showRatings">
+                <ion-row>
+                  <div class="no-ratings">
+                    <ion-icon name="star" class="ion-padding"></ion-icon>
+                    <div class="ion-padding-bottom">Se el primero en valorar esta receta</div>
                   </div>
-                </ion-col>
-                
-                <ion-item-divider></ion-item-divider>
-              </ion-row>
+                </ion-row>
+              </div>
+
+              <div *ngIf="showRatings">
+                <ion-row *ngFor="let rating of RecipeData.Ratings" class="rating-row ion-no-padding ion-no-margin">
+                  <ion-col size="auto">
+                    <a [routerLink]="['/app', 'chefsito', rating.UserUID]">
+                      <ion-avatar class="rating-image">
+                        <img [src]="rating.UserImgURL">
+                      </ion-avatar>
+                    </a>
+                  </ion-col>
+                  
+                  <ion-col class="rating-description">
+                    <a class="rating-user" [routerLink]="['/app', 'chefsito', rating.UserUID]">{{rating.User}}</a>
+                    <div *ngIf="rating.Comment" class="rating-comment">{{rating.Comment}}</div>
+                  </ion-col>
+  
+                  <ion-col size="auto">
+                    <div class="rating-number center-vertical ion-padding-end">
+                      <ion-icon name="star" style="color: gold;"></ion-icon>
+                      <div class="icon-description rating-number" style="color: gold;">{{rating.Rating}}</div>
+                    </div>
+                  </ion-col>
+                  
+                  <ion-item-divider></ion-item-divider>                
+                </ion-row>
+              </div>
+
             </ion-grid>
           </ng-template>
         </swiper>

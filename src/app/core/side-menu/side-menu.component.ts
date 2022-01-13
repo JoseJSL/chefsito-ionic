@@ -14,6 +14,7 @@ export class SideMenuComponent implements OnInit {
   constructor(private auth: AuthService, private menuCtrl: MenuController, private router: Router) { }
 
   async ngOnInit() {
+    this.menuCtrl.enable(false, 'homeMenu');
     this.currentUserData = defaultUser;
     this.auth.auth.user.subscribe(user => {
       if(user){

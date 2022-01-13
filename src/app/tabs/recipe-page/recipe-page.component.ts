@@ -20,6 +20,7 @@ export class RecipePage implements OnInit {
   public RecipeData: RecipeData = defaultRecipeData;
   public currentSegment: number = 0;
   public originalPortionSize: number;
+  public showRatings = false;
 
   constructor(private auth: AngularFireAuth,private afs: AngularFirestore ,private router: Router, private activeRoute: ActivatedRoute) { }
 
@@ -38,6 +39,7 @@ export class RecipePage implements OnInit {
 
           this.afs.collection('Recipe').doc(params.uid).collection<Rating>('Rating').valueChanges().subscribe(ratings => {
             this.RecipeData.Ratings = ratings;
+            this.showRatings = this.RecipeData.Ratings.length > 0 ? true: false;
           });
 
           this.auth.user.subscribe(user => {

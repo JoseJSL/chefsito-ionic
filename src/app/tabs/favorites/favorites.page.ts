@@ -11,6 +11,7 @@ import { FavoriteRecipe, Recipe } from '../../recipe';
 
 export class FavoritesPage implements OnInit{
   public FavoritedRecipes: Recipe[];
+  public showFavorites = true;
   constructor(private auth: AuthService) { }
 
   ngOnInit() {
@@ -21,11 +22,14 @@ export class FavoritesPage implements OnInit{
     this.auth.auth.user.subscribe(user => {
       this.auth.afs.collection('User').doc(user.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'id'}).subscribe(favorites => {
         this.FavoritedRecipes = [];
+
         favorites.forEach(fav => {
           this.auth.afs.collection<Recipe>('Recipe').doc(fav.id).get().subscribe(recipe => {
             this.FavoritedRecipes.push(recipe.data());
           });
         })
+
+        this.showFavorites = favorites.length > 0 ? true : false;
       });
     });
   }

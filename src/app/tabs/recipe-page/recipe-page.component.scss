@@ -42,7 +42,6 @@ ion-content{
     transition: 1s ease-in-out;
 }
 
-
 .align-self-center{
     margin: 0 auto;
 }
@@ -92,33 +91,58 @@ ion-buttons{
     align-items: center;
 }
 
+.no-ratings{
+    text-align: center;
+    width: 100%;
+    color: gray;
+
+    ion-icon{
+        font-size: 10vmin;
+    }
+
+    div{
+        font-size: 3vmin;
+    }
+}
+
+.rating-row{
+    display: flex;
+    align-items: center;
+}
+
+.rating-image{
+    width: 6.5vmin;
+    height: 6.5vmin;
+    padding: 0;
+    margin: 0;
+}
+
+.rating-suggest{
+    font-size: 2.75vmin;
+    color: gray;
+}
+
 .rating-description{
     text-align: left;
     width: 0;
 
     .rating-user{
-        font-size: 3vmin;
-        color: gray;
-        transition: 0.25s;
-    }
-
-    .rating-user:hover{
-        color: #FF0000 !important;
-        cursor: pointer;
+        font-size: 2.75vmin;
+        color: #FFF;
     }
 
     .rating-comment{
-        font-size: 3.5vmin;
+        color: #d8d8d8;
+        font-size: 2.75vmin;
     }
 }
 
 .rating-number{
-    font-size: 4vmin;
+    font-size: 2.75vmin;
     ion-icon{
         margin-right: 1vmin;
     }
 }
-
 
 .show-outline{
     border: 1px solid #f1f1f1 !important;
