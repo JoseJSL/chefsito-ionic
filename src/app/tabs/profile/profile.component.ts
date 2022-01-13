@@ -39,25 +39,32 @@ export class ProfileComponent implements OnInit {
         this.User = userData;
       });
 
-      this.afs.collection<Recipe>('Recipe', q => q.where('Author.UID', '==', currentUser.uid)).valueChanges().subscribe(userRecipes => {
-        this.UserRecipes = userRecipes;
-        if(userRecipes.length == 0){
-          this.showUserRecipes = false;
-        } else if(this.UserRecipes.length == 1){
+      this.afs.collection<Recipe>('Recipe', q => q.where('Author.UID', '==', currentUser.uid)).get().subscribe(userRecipes => {
+        this.UserRecipes = [];
+
+        this.showUserRecipes = userRecipes.docs.length > 0 ? true: false;
+
+        userRecipes.forEach(recipe => {
+          this.UserRecipes.push(recipe.data());
+        });
+
+        if(this.UserRecipes.length == 1){
           this.userRecipesSwiper.updateSwiper({slidesPerView: 1});
         }
       });
 
-      this.afs.collection('User').doc(currentUser.uid).collection<FavoriteRecipe>('Favorites').valueChanges({idField: 'UID'}).subscribe(favorites => {
-        this.UserFavorites = [];
-        for(let i = 0; i < favorites.length; i++){
-          this.afs.collection<Recipe>('Recipe').doc(favorites[i].UID).valueChanges().subscribe(recipe =>{
-            this.UserFavorites[i] = recipe;
-          });
+      this.afs.collection('User').doc(currentUser.uid).collection<FavoriteRecipe>('Favorites').get().subscribe(async favorites => {
+        this.UserFavorites = [] 
+
+        this.showFavorites = favorites.docs.length > 0 ? true: false;
+        
+        for(var i = 0; i < favorites.docs.length; i++){
+          this.UserFavorites.push(
+            (await this.afs.collection<Recipe>('Recipe').doc(favorites.docs[i].id).get().toPromise()).data()
+          );
         }
-        if(favorites.length == 0){
-          this.showFavorites = false;
-        } else if(favorites.length == 1){
+
+        if(this.UserFavorites.length == 1){
           this.favRecipesSwiper.updateSwiper({slidesPerView: 1});
         }
       });
