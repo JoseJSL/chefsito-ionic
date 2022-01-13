@@ -12,7 +12,7 @@
   <ion-grid>
     <ion-row>
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12" class="center-vertical">
-        <a class="author-info" [routerLink]="['/app', 'chefsito', Recipe.Author.UID]">
+        <a class="author-info" [routerLink]="['/app', 'chefsito', Recipe.Author.UID]" [title]="'Ver más de ' + Recipe.Author.Name">
           <ion-avatar class="align-end ion-margin">
             <ion-img [src]="Recipe.Author.ImgURL"></ion-img>
           </ion-avatar>
