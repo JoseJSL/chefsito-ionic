@@ -22,6 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { IonicRatingModule } from 'ionic-rating';
 import { ChefsitoComponent } from './chefsito/chefsito.component';
+import { SearchComponent } from './search/search.component';
+import { SearchFilterPopupComponent } from './search/search-filter-popup/search-filter-popup.component';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { ChefsitoComponent } from './chefsito/chefsito.component';
     FavoritesPage,
     ProfileComponent,
     CreateRecipeComponent,
-    ChefsitoComponent
+    ChefsitoComponent,
+    SearchComponent,
+    SearchFilterPopupComponent
   ],
   exports: [RecipePage, SearchBarComponent],
   providers: [

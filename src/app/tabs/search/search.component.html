@@ -1,0 +1,20 @@
+<ion-header [translucent]="true" >
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/app/home"></ion-back-button>
+    <app-search-bar [defaultValue]="defaultSearch"></app-search-bar>
+    <ion-item slot="end" button="true" (click)="openFilters()">
+      <ion-icon slot="end" name="filter"></ion-icon>
+      <ion-label>Filtros</ion-label>
+    </ion-item>
+  </ion-toolbar>
+
+  <app-search-filter-popup (sendFilter)="updateRecipes($event)" #filters></app-search-filter-popup>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="doRefresh(refresher)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>  
+
+  <app-recipe-grid [Recipes]="Recipes"></app-recipe-grid>
+</ion-content>

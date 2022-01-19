@@ -5,7 +5,16 @@
                 <img [src]="currentUserData.imgURL">
             </ion-avatar>
         </ion-button>
-        <ion-searchbar showCancelButton="focus" placeholder="Busca recetas o ingredientes"></ion-searchbar>
+
+        <ion-searchbar
+            #searchBar
+            [value]="defaultValue"
+            [formControl]="searchField" 
+            showCancelButton="focus" 
+            placeholder="Busca recetas o ingredientes"
+            (search)="search(searchBar)">
+        </ion-searchbar>
+        
         <ion-menu></ion-menu>
     </ion-toolbar>
 </ion-header>

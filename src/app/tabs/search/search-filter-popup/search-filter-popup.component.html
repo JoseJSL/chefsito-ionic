@@ -1,0 +1,29 @@
+<ion-toolbar id="filterContent" class="content" style="max-height: 0px;">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-list-header><ion-label>Categoría</ion-label></ion-list-header>
+  
+        <ion-list class="filter-list">
+          <ion-button [disabled]="cat.urlName == Filters.category" class="list-button" color="dark" fill="clear" *ngFor="let cat of Categories" (click)="setCategory(cat.urlName)">{{cat.title}}</ion-button>
+        </ion-list>
+      </ion-col>
+  
+      <ion-col size="4" >
+        <ion-list-header><ion-label>Dificultad</ion-label></ion-list-header>
+  
+        <ion-list class="filter-list">
+          <ion-button [disabled]="dif == Filters.difficulty" class="list-button" color="dark" fill="clear" *ngFor="let dif of Difficulties" (click)="setDifficulty(dif)">{{dif}}</ion-button>
+        </ion-list>
+      </ion-col>
+  
+      <ion-col size="4" >
+        <ion-list-header><ion-label>Ordenar por</ion-label></ion-list-header>
+  
+        <ion-list class="filter-list">
+          <ion-button [disabled]="order.value == Filters.orderBy" class="list-button" color="dark" fill="clear" *ngFor="let order of OrderBy" (click)="setOrder(order.value)">{{order.title}}</ion-button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>

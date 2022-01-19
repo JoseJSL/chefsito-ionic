@@ -9,6 +9,7 @@ import { HomePage } from './home/home.page';
 import { ProfileComponent } from './profile/profile.component';
 import { RecipeInstructionsComponent } from './recipe-page/recipe-instructions/recipe-instructions.component';
 import { RecipePage } from './recipe-page/recipe-page.component';
+import { SearchComponent } from './search/search.component';
 import { TabsPage } from './tabs.page';
 
 const redirectInToLogin = () => redirectUnauthorizedTo(['welcome']);
@@ -46,6 +47,12 @@ const routes: Routes = [
         component: RecipeInstructionsComponent,
       }
     ]
+  },
+  {
+    path: 'app/search',
+    canActivate: [AngularFireAuthGuard],
+    data: {authGuardPipe: redirectInToLogin},
+    component: SearchComponent,
   },
   {
     path: 'app',

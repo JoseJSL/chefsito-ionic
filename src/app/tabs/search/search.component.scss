@@ -1,0 +1,10 @@
+.search-config{
+    display: flex;
+
+    .category-config{
+        width: auto;
+        :last-child{
+            color: gray;
+        }
+    }
+}
