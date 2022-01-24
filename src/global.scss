@@ -45,7 +45,7 @@ a{
 
 //Para los modals
 
-@media only screen and (min-width: 768px) and (min-height: 600px) {
+@media (min-width: 768px) {
     .loginModal{
         .modal-wrapper{
             width: 55vh;

@@ -5,7 +5,9 @@ export interface Recipe{
     ImgURL: string,
     PortionSize: number,
     TimeMin: string,
-    Title: string
+    Title: string,
+    Category: string,
+    Difficulty: string,
 }
 
 export interface RecipeData{
@@ -64,6 +66,8 @@ export const defaultRecipe: Recipe = {
     TimeMin: '0',
     Title: 'Receta',
     UID: 'null',
+    Category: '',
+    Difficulty: '',
 }
 
 export const defaultRecipeData: RecipeData = {
@@ -89,4 +93,6 @@ export const defaultRecipeCreator: Recipe = {
     TimeMin: '0',
     Title: 'Nombre de la receta',
     UID: '',
+    Category: '',
+    Difficulty: '',
 }

@@ -2,23 +2,17 @@ ion-content{
     transition: 1s;
 }
 
+.select-category{
+    font-size: 3.5vh;
+    text-align: center;
+}
+
 .image-container{
     height: 100%;
     .recipe-img{
         margin: 0 auto;
         height: 100%;
         object-fit: cover;
-    }
-}
-
-@media only screen and (min-width: 768px) and (min-height: 600px) {
-    .image-container{
-        height: 477px;
-        .recipe-img{
-            margin: 0 auto;
-            height: 477px;
-            object-fit: cover;
-        }
     }
 }
 
@@ -56,6 +50,7 @@ ion-buttons{
         height: 8vmin;
     }
 }
+
 .counter{
     display: flex;
     align-items: center;
@@ -81,7 +76,6 @@ ion-buttons{
     }
 }
 
-
 @media (max-width: 768px){
     .ingredient-quantity{
         width: 100%;
@@ -96,16 +90,18 @@ ion-buttons{
     }
 }
 
-@media only screen and (min-width: 768px) and (min-height: 600px) {
+@media (min-width: 768px){
 
-    .recipe-img{
-        margin: 0 auto;
+    .image-container{
         height: 477px;
-        object-fit: cover;
+        .recipe-img{
+            margin: 0 auto;
+            height: 477px;
+            object-fit: cover;
+        }
     }
 
     swiper{
-        //background: white !important;
         max-height: 477px !important;
         overflow-y: auto !important;
     }

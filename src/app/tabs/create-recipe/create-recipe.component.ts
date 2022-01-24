@@ -7,12 +7,14 @@ import { User } from 'src/app/user';
 import { SwiperComponent } from 'swiper/angular';
 import { CustomIcon, foodIcons, kitchenIcons, Medida, Medidas, Dificultades, DifficultyColors } from './assets';
 import { AuthService } from 'src/app/core/auth.service';
+import { ExploreCategory, Categories } from 'src/app/tabs/explore/explore-category';
 
 @Component({
   selector: 'app-create-recipe',
   templateUrl: './create-recipe.component.html',
   styleUrls: ['./create-recipe.component.scss'],
 })
+
 export class CreateRecipeComponent implements OnInit {
   private imgFile: any;
   public Recipe: Recipe = defaultRecipeCreator;
@@ -25,6 +27,8 @@ export class CreateRecipeComponent implements OnInit {
   public kitchenIcons: CustomIcon[] = kitchenIcons;
   public Medidas: Medida[] = Medidas;
   public Dificultades: string[] = Dificultades;
+  public Categorias: ExploreCategory[] = Categories;
+
   constructor(
     private fireStorage: AngularFireStorage, 
     private platform: Platform, 
@@ -38,6 +42,7 @@ export class CreateRecipeComponent implements OnInit {
       TimeMin: this.builder.control('', [Validators.required]),
       Difficulty: this.builder.control('', [Validators.required]),
       Utensilio: this.builder.control('', [Validators.required]),
+      Category: this.builder.control('', [Validators.required]),
     });
 
     this.ingredientForm = this.builder.group({
@@ -84,9 +89,26 @@ export class CreateRecipeComponent implements OnInit {
     return Math.round(num * factor) / factor;
   }
 
+  isRecipeFormValid(): string{
+    if(!this.recipeForm.controls['Title'].valid){
+      return 'Título';
+    } else if(!this.recipeForm.controls['Category'].valid){
+      return 'Categoría';
+    }  else if(!this.recipeForm.controls['TimeMin'].valid){
+      return 'Tiempo';
+    } else if(!this.recipeForm.controls['Difficulty'].valid){
+      return 'Dificultad';
+    } else if(!this.recipeForm.controls['Utensilio'].valid){
+      return 'Utensilio';
+    }
+
+    return null;
+  }
+
   async createRecipe(): Promise<boolean>{
-    if(!this.recipeForm.valid){
-      this.authService.showAlertDialog('Error al crear receta.', 'Asegurese de que no falte ningún campo y vuelva a intentarlo');
+    let invalidInRecipe = this.isRecipeFormValid();
+    if(invalidInRecipe){
+      this.authService.showAlertDialog('Error al crear receta.', 'Falta el campo: ' + invalidInRecipe);
       return false;
     }
 
@@ -95,19 +117,21 @@ export class CreateRecipeComponent implements OnInit {
       return false
     }
 
-    if(this.RecipeData.Steps.length == 0){
-      this.authService.showAlertDialog('Error al crear receta.', 'La receta no contiene pasos.');
-      return false;
-    } else if(this.RecipeData.Ingredients.length == 0){
+    if(this.RecipeData.Ingredients.length == 0){
       this.authService.showAlertDialog('Error al crear receta.', 'La receta no contiene ingredientes.');
+      return false;
+    } else if(this.RecipeData.Steps.length == 0){
+      this.authService.showAlertDialog('Error al crear receta.', 'La receta no contiene pasos.');
       return false;
     }
 
     const data = this.recipeForm.controls;
     this.Recipe.Title = data['Title'].value;
     this.Recipe.TimeMin = data['TimeMin'].value;
+    this.Recipe.Category = data['Category'].value;
+    this.Recipe.Difficulty = data['Difficulty'].value;
     this.RecipeData.Tips[0].Description = data['TimeMin'].value
-    //this.Recipe.AvgRating = 5;
+    this.Recipe.AvgRating = 0;
     this.Recipe.UID = this.authService.afs.createId();
 
     const uploaded = await this.fireStorage.storage.ref(this.Recipe.UID).put(this.imgFile);
@@ -116,9 +140,9 @@ export class CreateRecipeComponent implements OnInit {
   }
 
   async confirmRecipe(){
+    const loading = await this.load.create({message: 'Creando receta...'});
+    loading.present();
     if(await this.createRecipe()){
-      const loading = await this.load.create({message: 'Creeando receta...'});
-      loading.present();
       this.authService.auth.user.subscribe(async user => {
         this.authService.afs.collection<User>('User').doc(user.uid).get().subscribe(data => {
           const userData = data.data();
@@ -129,6 +153,8 @@ export class CreateRecipeComponent implements OnInit {
       });
       loading.dismiss();
       this.authService.showAlertDialog('', '¡La receta ha sido creada!');
+    } else {
+      loading.dismiss();
     }
   }
 
@@ -170,12 +196,10 @@ export class CreateRecipeComponent implements OnInit {
 
   updateInputValue(formGroup: FormGroup, input: IonInput){
     formGroup.controls[input.name].setValue(input.value);
-    input.color = formGroup.controls[input.name].valid ? "success" : "danger";
   }
 
   updateSelectValue(formGroup: FormGroup, select: IonSelect){
     formGroup.controls[select.name].setValue(select.value);
-    //select.style.color = formGroup.controls[select.name].valid ? "#2fdf75" : "#ff4961";
   }
 
   updateDificultad(select: IonSelect){
@@ -193,7 +217,7 @@ export class CreateRecipeComponent implements OnInit {
 
   chooseImage(desktopInput: HTMLInputElement){
     if(this.platform.is('android')){
-
+      //TODO
     } else {
       desktopInput.click();
     }

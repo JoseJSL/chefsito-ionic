@@ -23,6 +23,17 @@
       </ion-col>
 
       <ion-col sizeLg="6" sizeXl="6" sizeMd="6" size="12">
+        <ion-select #Categoria 
+          (ionChange)="updateSelectValue(recipeForm, Categoria)" 
+          cancelText="Cancelar" 
+          name="Category" 
+          placeholder="Categoría"
+          class="show-outline select-category"
+          size="large">
+
+          <ion-select-option *ngFor="let cat of Categorias" [value]="cat.urlName">{{cat.title}}</ion-select-option>
+        </ion-select>
+
         <ion-segment #segmentSelector (ionChange)="segmentChanged($event, segments);" value="summary" class="recipe-parts">
           <ion-segment-button value="summary">
             <ion-label>Resúmen</ion-label>
