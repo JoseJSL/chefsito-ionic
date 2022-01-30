@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row>
     <ion-col size="6" sizeLg="4" *ngFor="let category of categories">
-      <a [routerLink]="['/app', 'explore', category.urlName]">
+      <a [routerLink]="['/app', 'search']" [queryParams]="{category: category.urlName}">
         <ion-card>
           <img [src]="category.imgUrl">
           <div class="card-title">{{category.title}}</div>

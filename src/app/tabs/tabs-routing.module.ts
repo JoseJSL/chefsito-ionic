@@ -50,9 +50,9 @@ const routes: Routes = [
   },
   {
     path: 'app/search',
+    component: SearchComponent,
     canActivate: [AngularFireAuthGuard],
     data: {authGuardPipe: redirectInToLogin},
-    component: SearchComponent,
   },
   {
     path: 'app',

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Dificultades } from '../../create-recipe/assets';
 import { Categories, ExploreCategory } from '../../explore/explore-category';
 import { Filter, FilterValue, orderByList } from '../filter';
@@ -10,42 +10,46 @@ import { Filter, FilterValue, orderByList } from '../filter';
   styleUrls: ['./search-filter-popup.component.scss'],
 })
 export class SearchFilterPopupComponent implements OnInit {
-  @Output() sendFilter = new EventEmitter<Filter>();
+  @Output() sendFilters = new EventEmitter<Filter>();
 
   public Filters: Filter;
   public Categories: ExploreCategory[] = Categories;
   public Difficulties: string[] = Dificultades;
   public OrderBy: FilterValue[] = orderByList;
 
-  constructor(private activeRoute: ActivatedRoute) {}
+  constructor(private activeRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe(queryParams => {
-      this.activeRoute.params.subscribe(params => {
-        this.Filters = {category: '', search: '', orderBy: '', difficulty: ''}; 
+      this.Filters = {category: '', search: '', orderBy: '', difficulty: -1}; 
         
-        this.Filters.category = params.category ? params.category : '';
-        this.Filters.search = queryParams.q ? queryParams.q : '';
-        this.Filters.orderBy = queryParams.orderBy ? queryParams.orderBy : '';
-        this.Filters.difficulty = queryParams.difficulty ? queryParams.difficulty : '';
-        this.sendFilter.emit(this.Filters);
-      });
+      this.Filters.category = queryParams.category ? queryParams.category : '';
+      this.Filters.search = queryParams.q ? queryParams.q : '';
+      this.Filters.orderBy = queryParams.orderBy ? queryParams.orderBy : '';
+      this.Filters.difficulty = queryParams.difficulty ? queryParams.difficulty : -1;
+      this.sendFilters.emit(this.Filters);
     });
   }
 
   setCategory(cat: string){
-    this.Filters.category = cat;
-    this.sendFilter.emit(this.Filters);
+    this.router.navigate(['/app', 'search'], {
+      queryParams: {category: cat},
+      queryParamsHandling: 'merge',
+    });
   }
 
-  setDifficulty(dif: string){
-    this.Filters.difficulty = dif;
-    this.sendFilter.emit(this.Filters);
+  setDifficulty(dif: number){
+    this.router.navigate(['/app', 'search'], {
+      queryParams: {difficulty: dif},
+      queryParamsHandling: 'merge',
+    });
   }
 
   setOrder(order: string){
-    this.Filters.orderBy = order;
-    this.sendFilter.emit(this.Filters);
+    this.router.navigate(['/app', 'search'], {
+      queryParams: {orderBy: order},
+      queryParamsHandling: 'merge',
+    });
   }
 
   async show(){

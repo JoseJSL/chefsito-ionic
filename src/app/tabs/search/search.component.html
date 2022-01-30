@@ -3,12 +3,12 @@
     <ion-back-button slot="start" defaultHref="/app/home"></ion-back-button>
     <app-search-bar [defaultValue]="defaultSearch"></app-search-bar>
     <ion-item slot="end" button="true" (click)="openFilters()">
-      <ion-icon slot="end" name="filter"></ion-icon>
-      <ion-label>Filtros</ion-label>
+      <ion-label class="filter-label ion-margin-end">Filtros</ion-label>
+      <ion-icon name="filter"></ion-icon>
     </ion-item>
   </ion-toolbar>
 
-  <app-search-filter-popup (sendFilter)="updateRecipes($event)" #filters></app-search-filter-popup>
+  <app-search-filter-popup (sendFilters)="updateRecipes($event)" #filters></app-search-filter-popup>
 </ion-header>
 
 <ion-content [fullscreen]="true">

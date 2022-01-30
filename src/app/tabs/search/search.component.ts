@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
 import { IonRefresher } from '@ionic/angular';
 import { Recipe } from 'src/app/recipe';
 import { Filter } from './filter';
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
 
   public defaultSearch: string;
   public Recipes: Recipe[];
-  constructor(private afs: AngularFirestore) {}
+  constructor(private afs: AngularFirestore, private activeRoute: ActivatedRoute) {}
 
   ngOnInit() {}
 
@@ -44,9 +45,9 @@ export class SearchComponent implements OnInit {
       collection.query.where('Category', "==", Filters.category);
       Filters.category = '';
       return this.filterRecipes(collection, Filters);
-    } else if(Filters.difficulty.length > 0){
+    } else if(Filters.difficulty > -1){
       collection.query.where('Difficulty', "==", Filters.difficulty);
-      Filters.difficulty = '';
+      Filters.difficulty = -1;
       return this.filterRecipes(collection, Filters);
     } else if(Filters.orderBy.length > 0 ){
       //Ordenar por
@@ -74,7 +75,6 @@ export class SearchComponent implements OnInit {
       words = wordsBack;
     }
     
-    console.log(words.length);
     for(i = 0; i < collection.size; i++){
       recipe = collection.docs[i].data();
 

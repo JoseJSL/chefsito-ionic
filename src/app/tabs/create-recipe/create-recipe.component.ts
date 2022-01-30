@@ -200,6 +200,7 @@ export class CreateRecipeComponent implements OnInit {
 
   updateSelectValue(formGroup: FormGroup, select: IonSelect){
     formGroup.controls[select.name].setValue(select.value);
+    console.log(select.value);
   }
 
   updateDificultad(select: IonSelect){

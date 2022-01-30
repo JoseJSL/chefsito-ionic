@@ -39,10 +39,9 @@ export class SearchBarComponent implements OnInit {
     this.searchField.setValue(searchBar.value);
 
     if(this.searchField.valid){
-      this.router.navigate(['/app', 'search'], {queryParams: 
-        {
-          q: searchBar.value
-        }
+      this.router.navigate(['/app', 'search'], {
+        queryParamsHandling: 'merge',
+        queryParams: {q: searchBar.value}
       });
     }
   }

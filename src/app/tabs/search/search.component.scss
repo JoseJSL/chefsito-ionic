@@ -8,3 +8,9 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .filter-label{
+        display: none;
+    }
+}

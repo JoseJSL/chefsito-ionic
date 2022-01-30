@@ -1,7 +1,7 @@
 export interface Filter{
     search: string,
     category: string,
-    difficulty: string,
+    difficulty: number,
     orderBy: string,
 }
 

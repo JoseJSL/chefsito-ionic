@@ -6,7 +6,7 @@ export interface Recipe{
     PortionSize: number,
     TimeMin: string,
     Title: string,
-    Category: string,
+    Category: string[],
     Difficulty: string,
 }
 
@@ -66,7 +66,7 @@ export const defaultRecipe: Recipe = {
     TimeMin: '0',
     Title: 'Receta',
     UID: 'null',
-    Category: '',
+    Category: [''],
     Difficulty: '',
 }
 
@@ -93,6 +93,6 @@ export const defaultRecipeCreator: Recipe = {
     TimeMin: '0',
     Title: 'Nombre de la receta',
     UID: '',
-    Category: '',
+    Category: [''],
     Difficulty: '',
 }
