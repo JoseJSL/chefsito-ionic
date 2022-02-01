@@ -3,6 +3,7 @@ import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore'
 import { ActivatedRoute } from '@angular/router';
 import { IonRefresher } from '@ionic/angular';
 import { Recipe } from 'src/app/recipe';
+import { Dificultades } from '../create-recipe/assets';
 import { Filter } from './filter';
 import { SearchFilterPopupComponent } from './search-filter-popup/search-filter-popup.component';
 
@@ -32,33 +33,39 @@ export class SearchComponent implements OnInit {
 
   async updateRecipes(Filters: Filter){
     this.defaultSearch = Filters.search;
-    const FiltersCopy = Filters;
 
-    this.afs.collection<Recipe>('Recipe').get().subscribe(recipes => {
-      this.Recipes = [];
-      this.filterByTextAndAdd(recipes, FiltersCopy.search);
+    this.Recipes = [];
+    this.filterRecipes(Filters);  
+  }
+
+  filterRecipes(Filters: Filter){
+    this.afs.collection<Recipe>('Recipe', ref => {
+      var recipeRef: firebase.default.firestore.CollectionReference | firebase.default.firestore.Query = ref;
+
+      if(Filters.category.length > 0){
+        recipeRef = recipeRef.where('Category', 'array-contains', Filters.category);
+      }
+  
+      if(Filters.difficulty > -1){
+        recipeRef = recipeRef.where('Difficulty', '==', Dificultades[Filters.difficulty]);
+      }
+  
+      if(Filters.orderBy.length > 0){
+        if(Filters.orderBy === 'rating'){
+          recipeRef = recipeRef.orderBy('AvgRating', 'desc')  ;
+        }
+      }
+      return recipeRef;
+    }).get().subscribe(recipes => {
+      if(Filters.search.length > 0){
+        this.filterByTextAndAdd(recipes, Filters.search);
+      } else {
+        recipes.forEach(r => this.Recipes.push(r.data()));
+      }
     });
   }
-
-  filterRecipes(collection: QuerySnapshot<Recipe>, Filters: Filter){
-    if(Filters.category.length > 0){
-      collection.query.where('Category', "==", Filters.category);
-      Filters.category = '';
-      return this.filterRecipes(collection, Filters);
-    } else if(Filters.difficulty > -1){
-      collection.query.where('Difficulty', "==", Filters.difficulty);
-      Filters.difficulty = -1;
-      return this.filterRecipes(collection, Filters);
-    } else if(Filters.orderBy.length > 0 ){
-      //Ordenar por
-    } else if(Filters.search.length > 0){
-      const text = Filters.search;
-      Filters.search = '';
-      return this.filterByTextAndAdd(collection, text);
-    }
-  }
-
-  filterByTextAndAdd(collection: QuerySnapshot<Recipe>, text: string): QuerySnapshot<Recipe>{
+  
+  filterByTextAndAdd(collection: QuerySnapshot<Recipe>, text: string){
     var i, j: number;
     var recipe: Recipe
 
@@ -85,8 +92,6 @@ export class SearchComponent implements OnInit {
         }
       }
     }
-
-    return collection;
   }
 
   isNotWordConnector(word: string){

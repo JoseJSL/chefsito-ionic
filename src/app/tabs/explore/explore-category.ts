@@ -14,7 +14,7 @@ export const Categories: ExploreCategory[] = [
     {title:'Mexicana',              urlName: 'mexican',     imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fmexican.jpg?alt=media&token=4eb8c0bc-8a0e-4042-af58-cb8d68a9eb0c',},
     {title:'Pastas',                urlName: 'pasta',       imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fpasta.jpg?alt=media&token=79eec454-3094-42a4-ab69-e57234035953',},
     {title:'De mar',                urlName: 'seafood',     imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fseafood.jpg?alt=media&token=5b5798e7-fefe-47a2-9608-525de5551677',},
-    {title:'Postres',               urlName: 'desserts',    imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fseafood.jpg?alt=media&token=5b5798e7-fefe-47a2-9608-525de5551677',},
+    {title:'Postres',               urlName: 'desserts',    imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fdessert.jpg?alt=media&token=63ea3d38-5a0e-4192-a227-4fea88653f17',},
     {title:'Sushi',                 urlName: 'sushi',       imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fsushi.jpg?alt=media&token=aa38738f-3d73-414a-8cc9-6ddfa163c82b',},
     {title:'Vegetariana',           urlName: 'vegetarian',  imgUrl:'https://firebasestorage.googleapis.com/v0/b/chefsito-bot.appspot.com/o/category%2Fvegetarian.jpg?alt=media&token=bc5a84f7-af07-4bfe-ac86-92e2b4d337a7',},
 ];
