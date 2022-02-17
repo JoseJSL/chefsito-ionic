@@ -134,6 +134,7 @@ export class AuthService {
       component: LoginModalComponent,
       cssClass: 'loginModal'
     });
+
     await modal.present();
 
     const { data } = await modal.onDidDismiss();
@@ -141,18 +142,26 @@ export class AuthService {
       const popup = await this.loadingController.create({message: 'Ingresando...'});
       popup.present()
 
-      await this.auth.signInWithEmailAndPassword(data.username, data.password).then(
-        () => {
-          popup.dismiss();
-          this.router.navigate(['/app/home']);
-        },
-        (err) =>{
-          popup.dismiss();
-          this.loginWithEmailPopUp();
-          this.showAlertDialog("Error al inciar sesión.", err);
-        }
-      ); 
+      try{
+        await this.auth.signInWithEmailAndPassword(data.username, data.password);
+        popup.dismiss();
+        this.router.navigate(['/app/home']);
+      } catch (e) {
+        popup.dismiss();
+        this.loginWithEmailPopUp();
+        this.showAlertDialog("Error al inciar sesión.", this.getErrorMessage(e.toString()));
+      }
     }
+  }
+
+  getErrorMessage(e: string): string{
+    if(e.indexOf('auth/user-not-found') > -1){
+      return 'No existe ninguna cuenta asociada a éste correo.';
+    } else if(e.indexOf('auth/wrong-password') > -1){
+      return 'La contraseña es incorrecta, o éste correo ha sido registrado con Google o Facebook.'
+    }
+    
+    return e;
   }
 
   async showAlertDialog(title: string, msg: any){

@@ -12,6 +12,6 @@ export interface FilterValue{
 
 export const orderByList: FilterValue[] = [
     {title: 'Relevancia', value: 'relevant'},
-    {title: 'Mejor calificados', value: 'rating'},
-    {title: 'Más recientes', value: 'recent'},
+    {title: 'Calificación', value: 'rating'},
+    {title: 'Recientes', value: 'recent'},
 ];

@@ -24,12 +24,6 @@ ion-list-header{
     font-weight: bolder;
 }
 
-@media (max-width: 768px) {
-    .content{
-        overflow-y: visible;
-    }
-}
-
 @media (max-width: 576px) {
     .list-button{
         width: 100%;
