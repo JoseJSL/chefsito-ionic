@@ -22,7 +22,7 @@ export interface Rating{
     Comment: string,
     User: string,
     UserImgURL: string;
-    UserUID;
+    UserUID: string;
 }
 
 export interface Author{
