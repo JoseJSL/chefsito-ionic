@@ -1,0 +1,89 @@
+{
+    "manifest": {
+      "apis": {
+        "custom": {
+          "endpoint": {
+            "sslCertificateType": "Wildcard",
+            "uri": "https://chefsito-bot.web.app/alexa"
+          },
+          "interfaces": []
+        }
+      },
+      "manifestVersion": "1.0",
+      "permissions": [
+        {
+          "name": "alexa::profile:name:read"
+        },
+        {
+          "name": "alexa::profile:email:read"
+        },
+        {
+          "name": "alexa::alerts:timers:skill:readwrite"
+        }
+      ],
+      "privacyAndCompliance": {
+        "allowsPurchases": false,
+        "containsAds": false,
+        "isChildDirected": false,
+        "isExportCompliant": true,
+        "isAlexaShoppingActionsEnabled": true,
+        "locales": {
+          "es-MX": {}
+        },
+        "usesPersonalInfo": true
+      },
+      "publishingInformation": {
+        "automaticDistribution": {
+          "isActive": false,
+          "sourceLocaleForLanguages": []
+        },
+        "category": "COOKING_AND_RECIPE",
+        "distributionCountries": [
+          "MX",
+          "GT",
+          "SV",
+          "HN",
+          "NI",
+          "CR",
+          "PA",
+          "CO",
+          "EC",
+          "PE",
+          "BO",
+          "CL",
+          "AR",
+          "UY",
+          "PY",
+          "VE",
+          "PR",
+          "DO",
+          "ES",
+          "GQ"
+        ],
+        "distributionMode": "PUBLIC",
+        "isAvailableWorldwide": false,
+        "locales": {
+          "es-MX": {
+            "description": "Asistente de cocina que te ayuda desde buscar recetas hasta que termines de cocinarlas de la página web https://chefsito-bot.web.app/",
+            "examplePhrases": [
+              "Alexa, abre el chefsito",
+              "Sorprendeme"
+            ],
+            "keywords": [
+              "cocina",
+              "cocinar",
+              "receta",
+              "recetas",
+              "recetario",
+              "comida"
+            ],
+            "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/53c9/b67f53068dd74adcb2fb2f806fa879a0/APP_ICON_LARGE?versionId=PZcXKj19a0hxQhnxYgNHK1PzL68hTqbK&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220316T182719Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=819af275fd905f0a1f76bf3be632b888b2019c0a3b376e10b794f1d10ede7bc6",
+            "name": "Chefsito",
+            "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f2a6/2ec86d719a8b4f9f8670011b59babcb1/APP_ICON?versionId=IFbUJq4EEh4pikGLnDNntOFF8OzhNbQN&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220316T182719Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=9f1892f93c32ea02638746de83066e675a2a4d48da9cf38efebdf2cb97bb91fc",
+            "summary": "Asistente de cocina que te ayuda desde buscar recetas hasta que termines de cocinarlas."
+          }
+        },
+        "testingInstructions": "Di \"sorprendeme\""
+      }
+    }
+  }

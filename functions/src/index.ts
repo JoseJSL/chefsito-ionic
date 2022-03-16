@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import { SkillBuilders } from "ask-sdk-core";
 import { SkillRequestSignatureVerifier, TimestampVerifier } from "ask-sdk-express-adapter";
-import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler, SurpriseIntent, ContinueRecipeIntent, RecipeIngredientsIntent, RecipeDetailsIntent } from "./request-type";
+import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler, SurpriseIntent, ContinueRecipeIntent, RecipeIngredientsIntent, RecipeDetailsIntent, RecipeStepNumberIntent, RecipeNextStepIntent, RecipePreviousStepIntent } from "./request-type";
 
 exports.alexa = functions.https.onRequest(async (req, res) => {
     const skill = SkillBuilders.custom()
@@ -12,6 +12,9 @@ exports.alexa = functions.https.onRequest(async (req, res) => {
             ContinueRecipeIntent,
             RecipeIngredientsIntent,
             RecipeDetailsIntent,
+            RecipeStepNumberIntent,
+            RecipeNextStepIntent,
+            RecipePreviousStepIntent,
             SurpriseIntent)
         .addErrorHandlers(errorHandler)
     .create();
@@ -30,3 +33,4 @@ exports.alexa = functions.https.onRequest(async (req, res) => {
         res.send(err);
     }
 });
+ 

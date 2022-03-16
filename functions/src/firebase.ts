@@ -7,7 +7,7 @@ const Firestore = Firebase.firestore();
 
 export async function getRandomRecipe(): Promise<Recipe>{
   const recipes = await Firestore.collection("Recipe").get();
-  const rnd = Math.floor(Math.random() * recipes.docs.length);
+  const rnd = Math.round(Math.random() * recipes.docs.length);
 
   return recipes.docs[rnd].data() as Recipe;
 }
@@ -27,7 +27,7 @@ export function getRecipeIngredientsSpeech(list: Ingredient[]): string{
 
     ingredients = ingredients.substring(0, ingredients.length - 2);
     const ing = getReadableIngredient(list[list.length -1]);
-    ingredients += ing.charAt(0) == "i" ? (" e " + ing) : (" y " + ing);
+    ingredients += ing.charAt(0) == "i" ? (", e " + ing) : (", y " + ing);
   } else {
     ingredients += getReadableIngredient(list[0]);
   }
@@ -41,11 +41,9 @@ function getReadableIngredient(ing: Ingredient): string{
   if(ing.QuantityType.Name != "Unidades"){
     type = ing.Quantity > 1 ? ing.QuantityType.Name: ing.QuantityType.Name.substring(0, ing.QuantityType.Name.length - 1);
     type += " de";
-
-    type = type.toLowerCase().replace("de de ", "de ");
   }
 
-  return `${ing.Quantity} ${type} ${ing.Name.toLowerCase()}`;
+  return `${ing.Quantity} ${type} ${ing.Name}`.toLowerCase().replace("de de ", "de ");
 }
 
 export function getRecipeCategoriesSpeech(recipe: Recipe): string{
@@ -77,7 +75,10 @@ function getReadableCategory(cat: string){
 }
 
 export function getRecipeRatingsSpeech(rating: number): string{
-
   return rating == 0 ? "Aún no ha sido calificada por nadie" : 
     rating == 1 ? `Tiene una calificación de ${rating} estrella` : `Tiene una calificación de ${rating} estrellas`;
+}
+
+export function parseStepSlot(step: string): number{
+  return 0;
 }
