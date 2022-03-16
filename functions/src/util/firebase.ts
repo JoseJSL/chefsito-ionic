@@ -78,7 +78,3 @@ export function getRecipeRatingsSpeech(rating: number): string{
   return rating == 0 ? "Aún no ha sido calificada por nadie" : 
     rating == 1 ? `Tiene una calificación de ${rating} estrella` : `Tiene una calificación de ${rating} estrellas`;
 }
-
-export function parseStepSlot(step: string): number{
-  return 0;
-}

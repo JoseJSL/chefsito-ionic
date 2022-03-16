@@ -1,29 +1,29 @@
 import * as functions from "firebase-functions";
 import { SkillBuilders } from "ask-sdk-core";
 import { SkillRequestSignatureVerifier, TimestampVerifier } from "ask-sdk-express-adapter";
-import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler, SurpriseIntent, ContinueRecipeIntent, RecipeIngredientsIntent, RecipeDetailsIntent, RecipeStepNumberIntent, RecipeNextStepIntent, RecipePreviousStepIntent } from "./request-type";
+import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler } from "./handlers/base-request";
+import { SurpriseIntent, ContinueRecipeIntent, RecipeIngredientsIntent, RecipeDetailsIntent, RecipeStepNumberIntent, RecipeNextStepIntent, RecipePreviousStepIntent } from "./handlers/recipe-request";
+
+const skill = SkillBuilders.custom()
+    .addRequestHandlers(
+        launchRequestHandler, 
+        cancelAndStopIntentHandler, 
+        sessionEndedRequestHandler,
+        ContinueRecipeIntent,
+        RecipeIngredientsIntent,
+        RecipeDetailsIntent,
+        RecipeStepNumberIntent,
+        RecipeNextStepIntent,
+        RecipePreviousStepIntent,
+        SurpriseIntent)
+    .addErrorHandlers(errorHandler)
+.create();
 
 exports.alexa = functions.https.onRequest(async (req, res) => {
-    const skill = SkillBuilders.custom()
-        .addRequestHandlers(
-            launchRequestHandler, 
-            cancelAndStopIntentHandler, 
-            sessionEndedRequestHandler,
-            ContinueRecipeIntent,
-            RecipeIngredientsIntent,
-            RecipeDetailsIntent,
-            RecipeStepNumberIntent,
-            RecipeNextStepIntent,
-            RecipePreviousStepIntent,
-            SurpriseIntent)
-        .addErrorHandlers(errorHandler)
-    .create();
-
     try {
         const textBody = req.rawBody.toString();
-        const requestHeaders = req.headers;
 
-        await new SkillRequestSignatureVerifier().verify(textBody, requestHeaders);
+        await new SkillRequestSignatureVerifier().verify(textBody, req.headers);
         await new TimestampVerifier().verify(textBody);
 
         const response = await skill.invoke(req.body);
