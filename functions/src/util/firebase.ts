@@ -62,8 +62,6 @@ export function getRecipeCategoriesSpeech(recipe: Recipe): string{
   }
 
   return cats;
-
-
 }
 
 function getReadableCategory(cat: string){
@@ -77,4 +75,57 @@ function getReadableCategory(cat: string){
 export function getRecipeRatingsSpeech(rating: number): string{
   return rating == 0 ? "Aún no ha sido calificada por nadie" : 
     rating == 1 ? `Tiene una calificación de ${rating} estrella` : `Tiene una calificación de ${rating} estrellas`;
+}
+
+export async function getRecipesLike(query: string): Promise<Recipe[]>{
+  let words: string[] = query.toLowerCase().split(/[ ]+/);
+  const wordsBack = [... words];
+
+  for(let i = 0; i < words.length; i++){
+    if(!isNotWordConnector(words[i])){
+      words.splice(i, 1);
+    }
+  }
+
+  if(words.length < 1){
+    words = wordsBack;
+  }
+
+  const recipes = await Firestore.collection('Recipe').get();
+  let result: Recipe[] = [];
+
+  let recipeData: Recipe;
+  
+  recipes.forEach(r => {
+    recipeData = r.data() as Recipe;
+
+    for(let i = 0; i < words.length; i++){
+      if(recipeData.Title.toLowerCase().includes(words[i])){
+        result.push(recipeData);
+        i = words.length;
+      }
+    }
+  });
+
+  return result;
+}
+
+function isNotWordConnector(word: string){
+  if(word == 'a'){
+    return false;
+  } else if(word == 'con'){
+    return false;
+  } else if(word == 'de'){
+    return false;
+  } else if(word == 'del'){
+    return false;
+  } else if(word == 'la'){
+    return false;
+  } else if(word == 'sobre'){
+    return false;
+  } else if(word == 'y'){
+    return false;
+  }
+
+  return true;
 }

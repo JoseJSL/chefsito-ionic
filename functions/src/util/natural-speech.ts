@@ -1,3 +1,5 @@
+import { Recipe } from "./recipe";
+
 export function getFoundRecipeStartSpeech(): string {
     const r = Math.round(Math.random() * 5);
     
@@ -56,4 +58,22 @@ function getTitleSpeech(title: string): string{
         default:
             return "con el nombre "+ title;
     }
+}
+
+export function getRecipeBunchSpeech(recipes: Recipe[]): string{
+    let speech = "Encontré las recetas: ";
+
+    if(recipes.length > 1 ){
+        for(let i = 0; i < recipes.length - 1; i++){
+            speech += recipes[i].Title + " de " + recipes[i].Author.Name + ", ";
+        }
+    
+        speech += recipes[recipes.length - 1].Title.charAt(0) == "i" ? 
+            " e " + recipes[recipes.length - 1].Title + " de " + recipes[recipes.length - 1].Author.Name + "." :
+            " y " + recipes[recipes.length - 1].Title + " de " + recipes[recipes.length - 1].Author.Name + "."     
+    } else {
+        speech = "Solo encontré la receta " + recipes[0].Title + " del chefsito " + recipes[0].Author.Name + ".";
+    }
+
+    return speech;
 }
