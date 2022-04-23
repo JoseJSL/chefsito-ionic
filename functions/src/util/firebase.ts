@@ -125,7 +125,21 @@ function isNotWordConnector(word: string){
     return false;
   } else if(word == 'y'){
     return false;
+  } else if(word == 'o'){
+    return false;
+  } else if(word == 'e'){
+    return false;
   }
 
   return true;
+}
+
+export async function getRecipeWhereTitleAndAuthor(title: string, authorName: string): Promise<Recipe | null>{
+  const recipes = (await Firestore.collection('Recipe').where('Title', "==", title).where('Author.Name', '==', authorName).get());
+  
+  if(!recipes.empty){
+    return recipes.docs[0].data() as Recipe;
+  } else {
+    return null;
+  }
 }
