@@ -7,9 +7,10 @@ import { AppRoutingModule } from '../app-routing.module';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, LoginModalComponent, RegisterModalComponent],
+  declarations: [WelcomeComponent, LoginModalComponent, RegisterModalComponent, PrivacyPolicyComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -17,7 +18,7 @@ import { RegisterModalComponent } from './register-modal/register-modal.componen
     IonicModule.forRoot(), 
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class CoreModule { }
