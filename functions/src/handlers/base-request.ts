@@ -44,6 +44,23 @@ export const cancelAndStopIntentHandler : RequestHandler = {
     },
 };
 
+export const helpIntentHandler : RequestHandler = {
+  canHandle(handlerInput : HandlerInput) : boolean {
+    const request = handlerInput.requestEnvelope.request;
+    return request.type === "IntentRequest" && request.intent.name === "AMAZON.HelpIntent";
+  },
+  handle(handlerInput : HandlerInput) : Response {
+    const speechText: string = 'Puedes decir "Sorpréndeme" para conseguir una receta aleatoria ó "Busca recetas de..." para buscar recetas con ingredientes específicos.';
+    
+    return handlerInput.responseBuilder
+      .speak(speechText)
+
+      .withSimpleCard('Usos de Chefsito', speechText)
+      .withShouldEndSession(false)
+      .getResponse();
+  },
+};
+
 export const sessionEndedRequestHandler : RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
       return getIntentName(handlerInput.requestEnvelope) === "SessionEndedRequest";
