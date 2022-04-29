@@ -20,6 +20,7 @@ export const SurpriseIntent : RequestHandler = {
       sessionAttributes.currentRecipe = rndRecipe;
       sessionAttributes.allowedToContinue = true;
       sessionAttributes.allowedToShop = true;
+      sessionAttributes.currentIntent = 'SurpriseIntent';
   
       return handlerInput.responseBuilder
         .speak(speechText)
@@ -35,6 +36,7 @@ export const SearchRecipesLikeIntent: RequestHandler = {
       return getIntentName(handlerInput.requestEnvelope) === 'SearchRecipesLikeIntent';
     },
     async handle(handlerInput : HandlerInput) : Promise<Response> {
+      const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
       let speechText: string;
   
       const query = getSlotValue(handlerInput.requestEnvelope, 'query');
@@ -44,11 +46,11 @@ export const SearchRecipesLikeIntent: RequestHandler = {
         speechText = getRecipeBunchSpeech(recipes);
         speechText += 'Dime su número para continuar con una receta.';
 
-        handlerInput.attributesManager.getSessionAttributes().currentIntent = 'SearchRecipesLikeIntent';
-        handlerInput.attributesManager.getSessionAttributes().searchedRecipes = recipes;
+        sessionAttributes.currentIntent = 'SearchRecipesLikeIntent';
+        sessionAttributes.searchedRecipes = recipes;
       } else {
         speechText = 'Lo siento, no pude encontrar recetas con ' + query;
-        handlerInput.attributesManager.getSessionAttributes().searchedRecipes = undefined;
+        sessionAttributes.searchedRecipes = undefined;
       }
 
       return handlerInput.responseBuilder
@@ -77,12 +79,13 @@ export const SelectRecipeFromSearchIntent: RequestHandler = {
     
         speechText = 'La receta ' + getCategoriesAndTitleSpeech(recipes[index].Category.length, categories, recipes[index].Title);
         speechText += `, es una receta de dificultad ${recipes[index].Difficulty.toLowerCase()} con una duración de ${recipes[index].TimeMin}. ${rating}.`;
-    
+        speechText += '¿Continuamos con esta receta?';
+        
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.currentRecipe = recipes[index];
         sessionAttributes.allowedToContinue = true;
         sessionAttributes.allowedToShop = true;
-
+        sessionAttributes.currentIntent = 'SelectRecipeFromSearchIntent';
       } else {
         speechText = 'No hay una receta #' + (index + 1) + '. Solo ' + getRecipeBunchSpeech(recipes);
       }

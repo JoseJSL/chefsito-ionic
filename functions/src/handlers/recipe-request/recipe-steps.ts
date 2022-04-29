@@ -19,8 +19,10 @@ export const RecipeStepNumberIntent: RequestHandler = {
         
         speechText = await getSetCurrentStep(recipeData, stepNumber, handlerInput);
         response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+
+        sessionAttributes.currentIntent = 'RecipeStepNumberIntent';
       } else {
-        speechText = '¿De qué receta?';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
   
       return response
@@ -37,7 +39,7 @@ export const RecipeNextStepIntent: RequestHandler = {
     async handle(handlerInput : HandlerInput) : Promise<Response> {
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
       let response = handlerInput.responseBuilder;
-      let speechText: string; 
+      let speechText: string;
       
       if(sessionAttributes.allowedToContinue){
         const recipe: Recipe = sessionAttributes.currentRecipe;
@@ -46,8 +48,9 @@ export const RecipeNextStepIntent: RequestHandler = {
   
         speechText = await getSetCurrentStep(recipeData, nextStepIndex, handlerInput);
         response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+        sessionAttributes.currentIntent = 'RecipeNextStepIntent';
       } else {
-        speechText = '¿De qué receta?';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
   
       return response
@@ -73,8 +76,9 @@ export const RecipePreviousStepIntent: RequestHandler = {
   
         speechText = await getSetCurrentStep(recipeData, prevStepIndex, handlerInput);
         response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+        sessionAttributes.currentIntent = 'RecipePreviousStepIntent';
       } else {
-        speechText = '¿De qué receta?';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
   
       return response

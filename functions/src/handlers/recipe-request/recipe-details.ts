@@ -4,8 +4,6 @@ import { getRecipeRatingsSpeech } from '../../util/firebase';
 import { getRecipeData, getRecipeIngredientsSpeech } from '../../util/firebase';
 import { Recipe, RecipeData } from '../../util/recipe';
 
-
-
 export const RecipeDetailsIntent: RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
       return  getIntentName(handlerInput.requestEnvelope) === 'RecipeDetailsIntent';
@@ -14,16 +12,22 @@ export const RecipeDetailsIntent: RequestHandler = {
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
       let response = handlerInput.responseBuilder;
       let speechText: string;
-  
+
       if(sessionAttributes.allowedToContinue){
-        const recipe: Recipe = sessionAttributes.currentRecipe;
-        const rating = getRecipeRatingsSpeech(recipe.AvgRating);
-  
-        speechText = `La receta ${recipe.Title} es una receta de dificultad ${recipe.Difficulty.toLowerCase()} con una duración de ${recipe.TimeMin}. ${rating}.`;
-        
-        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL)
+        if(sessionAttributes.currentIntent === 'SelectRecipeFromSearchIntent'){
+          speechText = 'Puedes preguntarme por los ingredientes o puedes iniciar los pasos para comenzar a cocinar.';
+        } else {
+          const recipe: Recipe = sessionAttributes.currentRecipe;
+          const rating = getRecipeRatingsSpeech(recipe.AvgRating);
+    
+          speechText = `La receta ${recipe.Title} es una receta de dificultad ${recipe.Difficulty.toLowerCase()} con una duración de ${recipe.TimeMin}. ${rating}.`;
+          
+          response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+          
+          sessionAttributes.currentIntent = 'RecipeDetailsIntent'; 
+        }
       } else {
-        speechText = '¿De qué receta?';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
   
       return response
@@ -40,6 +44,7 @@ export const ContinueRecipeIntent : RequestHandler = {
   handle(handlerInput : HandlerInput) : Response {
     const recipe: Recipe = handlerInput.attributesManager.getSessionAttributes().currentRecipe;
     const speechText = `De la receta ${recipe.Title} puedes preguntarme por más detalles, los ingredientes, o quizá, ya quieras iniciar con los pasos.`;
+    handlerInput.attributesManager.getSessionAttributes().currentIntent = 'ContinueRecipeIntent';
   
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -72,9 +77,11 @@ export const RecipeIngredientsIntent: RequestHandler = {
   
         const ingredients = getRecipeIngredientsSpeech(recipeData.Ingredients);
         speechText = `Para preparar ${recipe.Title}, necesitas ${ingredients}. Si ya cuentas con los ingredientes, intenta iniciar los pasos.`;
-        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL)
+        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+        
+        sessionAttributes.currentIntent = 'RecipeIngredientsIntent';
       } else {
-        speechText = '¿De qué receta?';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
 
       return response
