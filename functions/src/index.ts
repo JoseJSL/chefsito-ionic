@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import { SkillBuilders } from "ask-sdk-core";
 import { SkillRequestSignatureVerifier, TimestampVerifier } from "ask-sdk-express-adapter";
 import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler, helpIntentHandler } from "./handlers/base-request";
-import { ContinueRecipeIntent, RecipeDetailsIntent, RecipeIngredientsIntent } from "./handlers/recipe-request/recipe-details";
+import { ContinueRecipeIntent, NoIntent, RecipeDetailsIntent, RecipeIngredientsIntent } from "./handlers/recipe-request/recipe-details";
 import { RecipeNextStepIntent, RecipePreviousStepIntent, RecipeStepNumberIntent } from "./handlers/recipe-request/recipe-steps";
 import { SearchRecipesLikeIntent, SelectRecipeFromSearchIntent, SurpriseIntent } from "./handlers/recipe-request/search-recipe";
 import { ShoppingTestIntent } from "./handlers/shopping-request/try-shop";
@@ -24,7 +24,8 @@ const skill = SkillBuilders.custom()
         SearchRecipesLikeIntent,
         SelectRecipeFromSearchIntent,
         ShoppingTestIntent,
-        SessionResumedRequestHandler)
+        SessionResumedRequestHandler,
+        NoIntent)
     .addErrorHandlers(errorHandler)
 .create();
 

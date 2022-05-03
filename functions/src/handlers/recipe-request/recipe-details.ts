@@ -2,7 +2,9 @@ import { HandlerInput, RequestHandler, getIntentName } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { getRecipeRatingsSpeech } from '../../util/firebase';
 import { getRecipeData, getRecipeIngredientsSpeech } from '../../util/firebase';
+import { getRecipeBunchSpeech } from '../../util/natural-speech';
 import { Recipe, RecipeData } from '../../util/recipe';
+import { SurpriseIntent } from './search-recipe';
 
 export const RecipeDetailsIntent: RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
@@ -15,7 +17,7 @@ export const RecipeDetailsIntent: RequestHandler = {
 
       if(sessionAttributes.allowedToContinue){
         if(sessionAttributes.currentIntent === 'SelectRecipeFromSearchIntent'){
-          speechText = 'Puedes preguntarme por los ingredientes o puedes iniciar los pasos para comenzar a cocinar.';
+          speechText = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
         } else {
           const recipe: Recipe = sessionAttributes.currentRecipe;
           const rating = getRecipeRatingsSpeech(recipe.AvgRating);
@@ -27,7 +29,7 @@ export const RecipeDetailsIntent: RequestHandler = {
           sessionAttributes.currentIntent = 'RecipeDetailsIntent'; 
         }
       } else {
-        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
+        speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria, o pídeme que busque recetas para tí.';
       }
   
       return response
@@ -39,7 +41,8 @@ export const RecipeDetailsIntent: RequestHandler = {
 
 export const ContinueRecipeIntent : RequestHandler = {
   canHandle(handlerInput : HandlerInput) : boolean {
-    return getIntentName(handlerInput.requestEnvelope) === 'ContinueRecipeIntent' && handlerInput.attributesManager.getSessionAttributes().allowedToContinue;
+    const name = getIntentName(handlerInput.requestEnvelope);
+    return (name === 'ContinueRecipeIntent' || name === 'AMAZON.YesIntent') && handlerInput.attributesManager.getSessionAttributes().allowedToContinue;
   },
   handle(handlerInput : HandlerInput) : Response {
     const recipe: Recipe = handlerInput.attributesManager.getSessionAttributes().currentRecipe;
@@ -90,3 +93,54 @@ export const RecipeIngredientsIntent: RequestHandler = {
         .getResponse();
     },
 };
+
+export const NoIntent : RequestHandler = {
+  canHandle(handlerInput : HandlerInput) : boolean {
+    return (getIntentName(handlerInput.requestEnvelope) === 'AMAZON.NoIntent');
+  },
+  async handle(handlerInput : HandlerInput) : Promise<Response> {
+    const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    let speechText: string = '¿Qué más quieres hacer?';
+
+    if(sessionAttributes.currentIntent === 'SelectRecipeFromSearchIntent'){
+      return NoIntentSelectRecipeFromSearchIntent(handlerInput);
+    } else if(sessionAttributes.currentIntent === 'SurpriseIntent') {
+      return await SurpriseIntent.handle(handlerInput);
+    }
+        
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withShouldEndSession(false)
+      .getResponse();
+  },
+};
+
+function NoIntentSelectRecipeFromSearchIntent(handlerInput: HandlerInput): Response{
+  const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+  const searchedRecipes: Recipe[] = sessionAttributes.searchedRecipes;
+  const response = handlerInput.responseBuilder;
+  let speechText: string;
+
+  if(searchedRecipes.length > 0){
+    const recipe: Recipe = sessionAttributes.currentRecipe;
+    
+    for(let i = 0; i < searchedRecipes.length; i++){
+      if(recipe.UID === searchedRecipes[i].UID){
+        searchedRecipes.splice(i, 1);
+        break;
+      }
+    }
+  
+    speechText = 'De tu búsqueda, solo quedan las recetas' + getRecipeBunchSpeech(searchedRecipes).replace('Encontré las recetas', '');
+    speechText += ' Si no te interesa ninguna, intenta hacer otra búsqueda o di "Sorpréndeme" para encontrar una receta aleatoria.'; 
+    response.withSimpleCard(searchedRecipes.length + (searchedRecipes.length > 1 ? ' resultados.' : ' resultado.') , speechText);
+  } else {
+    speechText = 'No encontré más recetas, intenta hacer otra búsqueda o di "Sorpréndeme" para encontrar una receta aleatoria.';
+    response.withSimpleCard('0 resultados.', speechText);
+  }
+
+  return response.
+    speak(speechText).
+    withShouldEndSession(false).
+    getResponse();
+}

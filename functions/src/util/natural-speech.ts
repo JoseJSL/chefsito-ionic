@@ -1,21 +1,21 @@
-import { Recipe } from "./recipe";
+import { Recipe } from './recipe';
 
 export function getFoundRecipeStartSpeech(): string {
     const r = Math.round(Math.random() * 5);
     
     switch(r){
         case 0:
-            return "Te apetece la receta";
+            return 'Te apetece la receta';
         case 1:
-            return "Qué te parece una receta";
+            return 'Qué te parece una receta';
         case 2:
-            return "Encontré una receta";
+            return 'Encontré una receta';
         case 3:
-            return "Qué te parece la receta";
+            return 'Qué te parece la receta';
         case 4:
-            return "Que tal la receta";
+            return 'Que tal la receta';
         default:
-            return "Que tal una receta";
+            return 'Que tal una receta';
     }
 }
 
@@ -34,15 +34,15 @@ function getCategoriesSpeech(categoryCount: number, categories: string): string{
     let speech: string;
     switch(r){
         case 0:
-            speech = categoryCount > 1 ? "en las categorías " : " en la categoría ";
+            speech = categoryCount > 1 ? 'en las categorías ' : ' en la categoría ';
             speech += categories;
             break;
         case 1:
-            speech = categoryCount > 1 ? "de las categorías " : "de la categoría ";
+            speech = categoryCount > 1 ? 'de las categorías ' : 'de la categoría ';
             speech += categories;
             break;
         default:
-            speech = categoryCount > 1 ? "en las secciones " : "de la sección ";
+            speech = categoryCount > 1 ? 'en las secciones ' : 'de la sección ';
             speech += categories;
     }
 
@@ -54,25 +54,25 @@ function getTitleSpeech(title: string): string{
 
     switch(r){
         case 0:
-            return "llamada " + title;
+            return 'llamada ' + title;
         default:
-            return "con el nombre "+ title;
+            return 'con el nombre '+ title;
     }
 }
 
 export function getRecipeBunchSpeech(recipes: Recipe[]): string{
-    let speech = "Encontré las recetas: ";
+    let speech = 'Encontré las recetas: ';
 
     if(recipes.length > 1 ){
         for(let i = 0; i < recipes.length - 1; i++){
-            speech += (i + 1) + ": " + recipes[i].Title + " de " + recipes[i].Author.Name + ", ";
+            speech += (i + 1) + ': ' + recipes[i].Title + ' de ' + recipes[i].Author.Name + ', ';
         }
     
-        speech += recipes[recipes.length - 1].Title.charAt(0) == "i" ? 
-            " e " + recipes.length + ": " + recipes[recipes.length - 1].Title + " de " + recipes[recipes.length - 1].Author.Name + "." :
-            " y " + recipes.length + ": " + recipes[recipes.length - 1].Title + " de " + recipes[recipes.length - 1].Author.Name + "."     
+        speech += recipes[recipes.length - 1].Title.charAt(0) == 'i' ? 
+            ' e ' + recipes.length + ': ' + recipes[recipes.length - 1].Title + ' de ' + recipes[recipes.length - 1].Author.Name + '.' :
+            ' y ' + recipes.length + ': ' + recipes[recipes.length - 1].Title + ' de ' + recipes[recipes.length - 1].Author.Name + '.'     
     } else {
-        speech = "Encontré la receta 1: " + recipes[0].Title + " de " + recipes[0].Author.Name + ".";
+        speech += '1: ' + recipes[0].Title + ' de ' + recipes[0].Author.Name + '.';
     }
     
     return speech;

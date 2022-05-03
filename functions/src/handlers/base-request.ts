@@ -57,15 +57,15 @@ export const helpIntentHandler : RequestHandler = {
     let speechText: string;
 
     if(currentIntent === 'RecipeDetailsIntent' || currentIntent === 'ContinueRecipeIntent' || currentIntent === 'SelectRecipeFromSearchIntent'){
-      speechText = 'Puedes preguntarme por los ingredientes o puedes iniciar los pasos para comenzar a cocinar diciendo "Paso uno" ó "Inicia los pasos".';
+      speechText = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
     } else if(currentIntent === 'RecipeIngredientsIntent'){
-      speechText = 'Si tiene todos los ingredientes listos, puede comenzar con los pasos diciendo "Paso uno" ó "Inicia los pasos".';
+      speechText = 'Si tiene todos los ingredientes listos, puede comenzar con los pasos diciendo "Paso uno", o "Inicia los pasos".';
     } else if(currentIntent === 'RecipeStepNumberIntent' || currentIntent === 'RecipeNextStepIntent' || currentIntent === 'RecipePreviousStepIntent'){
-      speechText = 'Si no te sientes seguro de seguir con los pasos, puedes preguntarme por más detalles de la receta o por sus ingredientes.';
+      speechText = 'Si no te sientes seguro de seguir con los pasos, puedes preguntarme por más detalles de la receta, o por sus ingredientes.';
     } else if(currentIntent === 'SearchRecipesLikeIntent'){
-      speechText = 'Puedes seleccionar una de las recetas diciéndome su número. Si no te gusta ninguna de las recetas, prueba buscar algo más o dí "Sorpréndeme" para encontrar recetas aleatorias.';
+      speechText = 'Puedes seleccionar una de las recetas diciéndome su número. Si no te gusta ninguna de las recetas, prueba buscar algo más, o dí "Sorpréndeme" para encontrar recetas aleatorias.';
     } else {
-      speechText = 'Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
+      speechText = 'Puedes decir "Sorpréndeme" para conseguir una receta aleatoria, o pídeme que busque recetas para tí.';
     }
 
     return handlerInput.responseBuilder

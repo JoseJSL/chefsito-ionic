@@ -44,17 +44,18 @@ export const SearchRecipesLikeIntent: RequestHandler = {
       
       if(recipes.length > 0 ){
         speechText = getRecipeBunchSpeech(recipes);
-        speechText += 'Dime su número para continuar con una receta.';
+        speechText += ' Dime su número para continuar con una receta.';
 
         sessionAttributes.currentIntent = 'SearchRecipesLikeIntent';
         sessionAttributes.searchedRecipes = recipes;
       } else {
-        speechText = 'Lo siento, no pude encontrar recetas con ' + query;
+        speechText = 'Lo siento, no pude encontrar recetas con "' + query + '".';
         sessionAttributes.searchedRecipes = undefined;
       }
 
       return handlerInput.responseBuilder
         .speak(speechText)
+        .withSimpleCard('Busqueda ' + query, speechText)
         .withShouldEndSession(false)
         .getResponse();
     },
@@ -67,25 +68,29 @@ export const SelectRecipeFromSearchIntent: RequestHandler = {
   },
   async handle(handlerInput : HandlerInput) : Promise<Response> {
     let speechText: string;
+    const response = handlerInput.responseBuilder;
     const slot: string | null = getSlotValue(handlerInput.requestEnvelope, 'recipeIndex');
     
     if(slot){
       const index: number = parseInt(slot) - 1;
       const recipes: Recipe[] = handlerInput.attributesManager.getSessionAttributes().searchedRecipes ;
-      
+
       if(recipes[index]){
         const categories = getRecipeCategoriesSpeech(recipes[index]);
         const rating = getRecipeRatingsSpeech(recipes[index].AvgRating);
     
         speechText = 'La receta ' + getCategoriesAndTitleSpeech(recipes[index].Category.length, categories, recipes[index].Title);
-        speechText += `, es una receta de dificultad ${recipes[index].Difficulty.toLowerCase()} con una duración de ${recipes[index].TimeMin}. ${rating}.`;
-        speechText += '¿Continuamos con esta receta?';
+        speechText += `, es una receta de dificultad ${recipes[index].Difficulty.toLowerCase()} con una duración de ${recipes[index].TimeMin}. ${rating}. `;
+        speechText += '¿Continuamos con ésta receta?';
         
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.currentRecipe = recipes[index];
         sessionAttributes.allowedToContinue = true;
         sessionAttributes.allowedToShop = true;
         sessionAttributes.currentIntent = 'SelectRecipeFromSearchIntent';
+
+        response.reprompt('¿Continuamos con la receta ' + recipes[index].Title + '?');
+        response.withStandardCard(recipes[index].Title, speechText, recipes[index].ImgURL, recipes[index].ImgURL);
       } else {
         speechText = 'No hay una receta #' + (index + 1) + '. Solo ' + getRecipeBunchSpeech(recipes);
       }
@@ -93,7 +98,7 @@ export const SelectRecipeFromSearchIntent: RequestHandler = {
       speechText = 'Lo siento, no pude entenderte.';
     }
 
-    return handlerInput.responseBuilder
+    return response
       .speak(speechText)
       .withShouldEndSession(false)
       .getResponse();
