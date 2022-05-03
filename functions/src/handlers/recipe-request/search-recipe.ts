@@ -55,7 +55,7 @@ export const SearchRecipesLikeIntent: RequestHandler = {
 
       return handlerInput.responseBuilder
         .speak(speechText)
-        .withSimpleCard('Busqueda ' + query, speechText)
+        .withSimpleCard('Búsqueda ' + query, speechText)
         .withShouldEndSession(false)
         .getResponse();
     },

@@ -41,8 +41,7 @@ export const RecipeDetailsIntent: RequestHandler = {
 
 export const ContinueRecipeIntent : RequestHandler = {
   canHandle(handlerInput : HandlerInput) : boolean {
-    const name = getIntentName(handlerInput.requestEnvelope);
-    return (name === 'ContinueRecipeIntent' || name === 'AMAZON.YesIntent') && handlerInput.attributesManager.getSessionAttributes().allowedToContinue;
+    return (getIntentName(handlerInput.requestEnvelope) === 'AMAZON.YesIntent') && handlerInput.attributesManager.getSessionAttributes().allowedToContinue;
   },
   handle(handlerInput : HandlerInput) : Response {
     const recipe: Recipe = handlerInput.attributesManager.getSessionAttributes().currentRecipe;

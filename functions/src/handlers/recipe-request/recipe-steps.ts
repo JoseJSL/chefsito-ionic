@@ -34,10 +34,12 @@ export const RecipeStepNumberIntent: RequestHandler = {
     
 export const RecipeNextStepIntent: RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
-      return getIntentName(handlerInput.requestEnvelope) === 'RecipeNextStepIntent';
+      const name = getIntentName(handlerInput.requestEnvelope);
+      return name === 'RecipeNextStepIntent' || name =='AMAZON.NextIntent'; 
     },
     async handle(handlerInput : HandlerInput) : Promise<Response> {
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+      
       let response = handlerInput.responseBuilder;
       let speechText: string;
       
@@ -62,7 +64,8 @@ export const RecipeNextStepIntent: RequestHandler = {
     
 export const RecipePreviousStepIntent: RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
-      return getIntentName(handlerInput.requestEnvelope) === 'RecipePreviousStepIntent';
+      const name = getIntentName(handlerInput.requestEnvelope);
+      return name === 'RecipePreviousStepIntent' || name == 'AMAZON.PreviousIntent';
     },
     async handle(handlerInput : HandlerInput) : Promise<Response> {
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
