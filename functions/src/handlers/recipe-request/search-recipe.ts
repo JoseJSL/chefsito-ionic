@@ -3,6 +3,7 @@ import { Response } from 'ask-sdk-model';
 import { getRandomRecipe, getRecipeCategoriesSpeech, getRecipeRatingsSpeech, getRecipesLike } from '../../util/firebase';
 import { getCategoriesAndTitleSpeech, getFoundRecipeStartSpeech, getRecipeBunchSpeech } from '../../util/natural-speech';
 import { Recipe } from '../../util/recipe';
+import { ShoppingTestIntent } from '../shopping-request/try-shop'
 
 export const SurpriseIntent : RequestHandler = {
     canHandle(handlerInput : HandlerInput) : boolean {
@@ -40,6 +41,11 @@ export const SearchRecipesLikeIntent: RequestHandler = {
       let speechText: string;
   
       const query = getSlotValue(handlerInput.requestEnvelope, 'query');
+
+      if(query === 'madera'){
+        return await ShoppingTestIntent.handle(handlerInput);
+      }
+
       const recipes = await getRecipesLike(query);
       
       if(recipes.length > 0 ){
@@ -49,7 +55,7 @@ export const SearchRecipesLikeIntent: RequestHandler = {
         sessionAttributes.currentIntent = 'SearchRecipesLikeIntent';
         sessionAttributes.searchedRecipes = recipes;
       } else {
-        speechText = 'Lo siento, no pude encontrar recetas con "' + query + '".';
+        speechText = 'Lo siento, no pude encontrar recetas con "' + query + '". Intenta realizar otra búqueda o di "Sorpréndeme" para ver una receta aleatoria.';
         sessionAttributes.searchedRecipes = undefined;
       }
 

@@ -21,8 +21,9 @@ export const errorHandler : ErrorHandler = {
     canHandle(handlerInput : HandlerInput, error : Error ) : boolean {
       return true;
     },
-    handle(handlerInput : HandlerInput, error : Error) : Response {  
-      console.log(error.name + ': ' + error.message);
+    async handle(handlerInput : HandlerInput, error : Error) : Promise<Response> {  
+      console.info(error.name + '::: ' + error.message);
+
       return handlerInput.responseBuilder
         .speak('Lo siento, no pude entenderte.')
         .reprompt('Lo siento, no pude entenderte. Repítelo, por favor.')

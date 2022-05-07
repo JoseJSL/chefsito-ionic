@@ -110,7 +110,7 @@ export async function getRecipesLike(query: string): Promise<Recipe[]>{
   return result;
 }
 
-function isNotWordConnector(word: string){
+export function isNotWordConnector(word: string){
   if(word == 'a'){
     return false;
   } else if(word == 'con'){
