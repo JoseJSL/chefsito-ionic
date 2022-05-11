@@ -1,8 +1,31 @@
-import { Directive } from 'ask-sdk-model';
+import { Directive, services } from 'ask-sdk-model';
 import { HandlerInput } from 'ask-sdk-core';
 import { Ingredient } from './recipe';
-import { isNotWordConnector } from './firebase';
+import { getReadableIngredient, isNotWordConnector } from './firebase';
 import { searchAmazon, AmazonSearchResult } from 'unofficial-amazon-search'
+
+export async function listExists(name: string, listManager: services.listManagement.ListManagementServiceClient): Promise<boolean>{
+    const lists = await (await listManager.getListsMetadata()).lists;
+    if(lists && lists.length > 0){
+        for(let i = 0; i < lists.length; i++){
+            if(lists[i].name === name){
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+export function getListOfIngredients(ingredients: Ingredient[]): string[]{
+    let list: string[] = [];
+
+    for(let i = 0; i < ingredients.length; i++){
+        list.push(getReadableIngredient(ingredients[i]));
+    }
+
+    return list;
+}
 
 export async function getProductsDirective(ingredients: Ingredient[], handlerInput: HandlerInput): Promise<Directive>{
     let shopDirective: Directive = {
