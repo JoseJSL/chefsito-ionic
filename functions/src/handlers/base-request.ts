@@ -22,7 +22,7 @@ export const errorHandler : ErrorHandler = {
       return true;
     },
     async handle(handlerInput : HandlerInput, error : Error) : Promise<Response> {  
-      console.info(error.name + '::: ' + error.message);
+      console.error(error.name + '::: ' + error.message);
 
       return handlerInput.responseBuilder
         .speak('Lo siento, no pude entenderte.')
@@ -60,7 +60,7 @@ export const helpIntentHandler : RequestHandler = {
     if(currentIntent === 'RecipeDetailsIntent' || currentIntent === 'ContinueRecipeIntent' || currentIntent === 'SelectRecipeFromSearchIntent'){
       speechText = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
     } else if(currentIntent === 'RecipeIngredientsIntent'){
-      speechText = 'Si tiene todos los ingredientes listos, puede comenzar con los pasos diciendo "Paso uno", o "Inicia los pasos".';
+      speechText = 'Puedes crear una lista con los ingredientes, o si ya los tienes listos, intenta comenzar con los pasos diciendo "Paso uno", o "Inicia los pasos".';
     } else if(currentIntent === 'RecipeStepNumberIntent' || currentIntent === 'RecipeNextStepIntent' || currentIntent === 'RecipePreviousStepIntent'){
       speechText = 'Puedes decir "Continúa", "Anterior", o dime el número del paso que quieras saber. ';
       speechText += 'Si no te sientes seguro de seguir con los pasos, puedes preguntarme por más detalles de la receta, o por sus ingredientes.';

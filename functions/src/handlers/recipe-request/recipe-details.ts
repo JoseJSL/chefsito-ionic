@@ -78,7 +78,7 @@ export const RecipeIngredientsIntent: RequestHandler = {
         }
   
         const ingredients = getRecipeIngredientsSpeech(recipeData.Ingredients);
-        speechText = `Para preparar ${recipe.Title}, necesitas ${ingredients}. Si ya cuentas con los ingredientes, intenta iniciar los pasos.`;
+        speechText = `Para preparar ${recipe.Title}, necesitas ${ingredients}. Si ya cuentas con los ingredientes, intenta iniciar los pasos. También puedo crear una lista con los ingredientes de la receta.`;
         response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
         
         sessionAttributes.currentIntent = 'RecipeIngredientsIntent';

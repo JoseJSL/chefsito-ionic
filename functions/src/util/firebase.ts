@@ -35,7 +35,7 @@ export function getRecipeIngredientsSpeech(list: Ingredient[]): string{
   return ingredients;
 }
 
-function getReadableIngredient(ing: Ingredient): string{
+export function getReadableIngredient(ing: Ingredient): string{
   let type = "";
 
   if(ing.QuantityType.Name != "Unidades"){
