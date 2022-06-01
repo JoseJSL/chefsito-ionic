@@ -77,3 +77,21 @@ export function getRecipeBunchSpeech(recipes: Recipe[]): string{
     
     return speech;
 }
+
+export function askContinue(concatAtEnd?: string): string{
+    const r = Math.round(Math.random());
+
+    switch(r){
+        case 0: return `¿Seguimos${concatAtEnd ? ' ' + concatAtEnd : ''}?`;
+        default: return `¿Continuamos${concatAtEnd ? ' ' + concatAtEnd : ''}?`;
+    }
+}
+
+export function getWelcomeSpeech(): string{
+    const r = Math.round(Math.random());
+
+    switch(r){
+        case 0: return 'Hola chefsito. ¿Qué cocinamos hoy?';
+        default: return 'Bienvenido chefsito. ¿Qué hacemos hoy?';
+    }
+}

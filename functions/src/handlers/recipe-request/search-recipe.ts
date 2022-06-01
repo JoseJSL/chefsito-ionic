@@ -1,7 +1,7 @@
 import { HandlerInput, RequestHandler, getIntentName, getSlotValue } from 'ask-sdk-core';
 import { Response } from 'ask-sdk-model';
 import { getRandomRecipe, getRecipeCategoriesSpeech, getRecipeRatingsSpeech, getRecipesLike } from '../../util/firebase';
-import { getCategoriesAndTitleSpeech, getFoundRecipeStartSpeech, getRecipeBunchSpeech } from '../../util/natural-speech';
+import { askContinue, getCategoriesAndTitleSpeech, getFoundRecipeStartSpeech, getRecipeBunchSpeech } from '../../util/natural-speech';
 import { Recipe } from '../../util/recipe';
 
 export const SurpriseIntent : RequestHandler = {
@@ -14,7 +14,8 @@ export const SurpriseIntent : RequestHandler = {
   
       let speechText = getFoundRecipeStartSpeech() + ' ';
       speechText += getCategoriesAndTitleSpeech(rndRecipe.Category.length, categories, rndRecipe.Title);
-      speechText += ', del chefsito ' + rndRecipe.Author.Name + '. ¿Continuamos con ésta receta?';
+      speechText += ', del chefsito ' + rndRecipe.Author.Name + '. ';
+      speechText += askContinue('con ésta receta');
   
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
       sessionAttributes.currentRecipe = rndRecipe;
@@ -24,7 +25,7 @@ export const SurpriseIntent : RequestHandler = {
   
       return handlerInput.responseBuilder
         .speak(speechText)
-        .reprompt(`¿Continuamos con la receta ${rndRecipe.Title}?`)
+        .reprompt(askContinue('con la receta ' + rndRecipe.Title))
         .withStandardCard(rndRecipe.Title, speechText, rndRecipe.ImgURL, rndRecipe.ImgURL)
         .withShouldEndSession(false)
         .getResponse();
@@ -82,7 +83,7 @@ export const SelectRecipeFromSearchIntent: RequestHandler = {
     
         speechText = 'La receta ' + getCategoriesAndTitleSpeech(recipes[index].Category.length, categories, recipes[index].Title);
         speechText += `, es una receta de dificultad ${recipes[index].Difficulty.toLowerCase()} con una duración de ${recipes[index].TimeMin}. ${rating}. `;
-        speechText += '¿Continuamos con ésta receta?';
+        speechText += askContinue('con ésta receta');
         
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.currentRecipe = recipes[index];
@@ -90,7 +91,7 @@ export const SelectRecipeFromSearchIntent: RequestHandler = {
         sessionAttributes.allowedToShop = true;
         sessionAttributes.currentIntent = 'SelectRecipeFromSearchIntent';
 
-        response.reprompt('¿Continuamos con la receta ' + recipes[index].Title + '?');
+        response.reprompt(askContinue('con la receta ' + recipes[index].Title));
         response.withStandardCard(recipes[index].Title, speechText, recipes[index].ImgURL, recipes[index].ImgURL);
       } else {
         speechText = 'No hay una receta #' + (index + 1) + '. Solo ' + getRecipeBunchSpeech(recipes);

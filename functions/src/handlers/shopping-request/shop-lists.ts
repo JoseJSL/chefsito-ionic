@@ -49,6 +49,7 @@ export const AddIngredientsToListIntent: RequestHandler = {
 
         speechText = 'La lista fue creada con el nombre "' + newList.name + '".';  
         listOfIngredients.forEach(ing => listManager.createListItem(newList.listId!, {value: ing, status: 'active'}));
+        sessionAttributes.currentIntent = 'AddIngredientsToListIntent';
       } else {
         speechText = 'Ya existe una lista con el nombre "' + name + '".';
       }
@@ -71,7 +72,8 @@ export const AddIngredientsToListIntent: RequestHandler = {
     }
 
     return response
-      .speak(speechText)
+      .speak(speechText + ' ¿Qué más quieres hacer?')
+      .reprompt('¿Qué más quieres hacer? Recuerda que puedes pedirme ayuda en cualquier momento.')
       .withShouldEndSession(false)
       .getResponse();
   }

@@ -19,14 +19,14 @@ export const RecipeStepNumberIntent: RequestHandler = {
         
         speechText = await getSetCurrentStep(recipeData, stepNumber, handlerInput);
         response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
-
+        speechText += ' ¿Qué más quieres hacer?';
         sessionAttributes.currentIntent = 'RecipeStepNumberIntent';
       } else {
         speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
   
       return response
-        .speak(speechText)
+        .speak(speechText )
         .withShouldEndSession(false)
         .getResponse();
     },
@@ -49,8 +49,15 @@ export const RecipeNextStepIntent: RequestHandler = {
         const nextStepIndex = sessionAttributes.lastStep ? sessionAttributes.lastStep + 1 : 1;
   
         speechText = await getSetCurrentStep(recipeData, nextStepIndex, handlerInput);
-        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
         sessionAttributes.currentIntent = 'RecipeNextStepIntent';
+
+        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+        speechText += ' ¿Qué más quieres hacer?';
+        if(recipeData.Steps.length > nextStepIndex){
+          response.reprompt('Puedes decir "siguiente paso" o "paso anterior" para seguir.');
+        } else {
+          response.reprompt('¿Qué más quieres hacer?');
+        }
       } else {
         speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
@@ -78,8 +85,11 @@ export const RecipePreviousStepIntent: RequestHandler = {
         const prevStepIndex = sessionAttributes.lastStep ? sessionAttributes.lastStep -1 : 1;
   
         speechText = await getSetCurrentStep(recipeData, prevStepIndex, handlerInput);
-        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
         sessionAttributes.currentIntent = 'RecipePreviousStepIntent';
+
+        response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
+        speechText += ' ¿Qué más quieres hacer?';
+        response.reprompt('Puedes decir "paso anterior" o "siguiente paso" para seguir.');
       } else {
         speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }

@@ -12,18 +12,21 @@ export const RecipeDetailsIntent: RequestHandler = {
     },
     handle(handlerInput : HandlerInput) : Response {
       const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+
+      const helpSpeech = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
+
       let response = handlerInput.responseBuilder;
       let speechText: string;
 
       if(sessionAttributes.allowedToContinue){
         if(sessionAttributes.currentIntent === 'SelectRecipeFromSearchIntent'){
-          speechText = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
+          speechText = helpSpeech;
         } else {
           const recipe: Recipe = sessionAttributes.currentRecipe;
           const rating = getRecipeRatingsSpeech(recipe.AvgRating);
     
           speechText = `La receta ${recipe.Title} es una receta de dificultad ${recipe.Difficulty.toLowerCase()} con una duración de ${recipe.TimeMin}. ${rating}.`;
-          
+          speechText += 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
           response.withStandardCard(recipe.Title, speechText, recipe.ImgURL, recipe.ImgURL);
           
           sessionAttributes.currentIntent = 'RecipeDetailsIntent'; 
@@ -34,6 +37,7 @@ export const RecipeDetailsIntent: RequestHandler = {
   
       return response
         .speak(speechText)
+        .reprompt(helpSpeech)
         .withShouldEndSession(false)
         .getResponse();
     },
@@ -85,9 +89,10 @@ export const RecipeIngredientsIntent: RequestHandler = {
       } else {
         speechText = '¿De qué receta?. Puedes decir "Sorpréndeme" para conseguir una receta aleatoria o pídeme que busque recetas para tí.';
       }
-
+      
       return response
         .speak(speechText)
+        .reprompt('Puedes crear una lista con los ingredientes, o si ya los tienes listos, intenta comenzar con los pasos diciendo "Paso uno", o "Inicia los pasos".')
         .withShouldEndSession(false)
         .getResponse();
     },
@@ -99,7 +104,6 @@ export const NoIntent : RequestHandler = {
   },
   async handle(handlerInput : HandlerInput) : Promise<Response> {
     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    let speechText: string = '¿Qué más quieres hacer?';
 
     if(sessionAttributes.currentIntent === 'SelectRecipeFromSearchIntent'){
       return NoIntentSelectRecipeFromSearchIntent(handlerInput);
@@ -108,7 +112,7 @@ export const NoIntent : RequestHandler = {
     }
         
     return handlerInput.responseBuilder
-      .speak(speechText)
+      .speak('¿Qué más quieres hacer?')
       .withShouldEndSession(false)
       .getResponse();
   },

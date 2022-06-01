@@ -10,11 +10,17 @@
       }
     },
     "manifestVersion": "1.0",
-    "permissions": [],
+    "permissions": [
+      {
+        "name": "alexa::household:lists:read"        
+      },
+      {
+        "name": "alexa::household:lists:write"       
+      }
+    ],
     "privacyAndCompliance": {
       "allowsPurchases": false,
       "containsAds": false,
-      "isAlexaShoppingActionsEnabled": true,
       "isChildDirected": false,
       "isExportCompliant": true,
       "locales": {
@@ -64,9 +70,9 @@
             "recetario",
             "comida"
           ],
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/53c9/b67f53068dd74adcb2fb2f806fa879a0/APP_ICON_LARGE?versionId=PZcXKj19a0hxQhnxYgNHK1PzL68hTqbK&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220506T060838Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220506%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=402f76a2bae3c2db7885977723d25b693edf6f4fff99eb06a043c2a1e07787ed",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/53c9/b67f53068dd74adcb2fb2f806fa879a0/APP_ICON_LARGE?versionId=PZcXKj19a0hxQhnxYgNHK1PzL68hTqbK&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220511T183647Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220511%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=975470d67e8cb135ed12cb567faed40057f5dc712d373f12ec03cf3f1ab33eb5",
           "name": "Chefsito",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f2a6/2ec86d719a8b4f9f8670011b59babcb1/APP_ICON?versionId=IFbUJq4EEh4pikGLnDNntOFF8OzhNbQN&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220506T060838Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220506%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f4d513072ca5c16877feca92f4600caab070261c1a3d162d33a93715a65bdab3",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f2a6/2ec86d719a8b4f9f8670011b59babcb1/APP_ICON?versionId=IFbUJq4EEh4pikGLnDNntOFF8OzhNbQN&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220511T183647Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAWBV6LQ4QPLOTC37V%2F20220511%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f4e2e52b2b9eae2662db922af8d232303afd4567f69fd5a1b84ef9bcd99f1818",
           "summary": "Asistente de cocina que te ayuda desde buscar recetas hasta que termines de cocinarlas."
         }
       },
