@@ -63,11 +63,7 @@ export const helpIntentHandler : RequestHandler = {
     } else if(currentIntent === 'RecipeDetailsIntent' || currentIntent === 'ContinueRecipeIntent' || currentIntent === 'SelectRecipeFromSearchIntent'){
       speechText = 'Puedes preguntarme por los ingredientes, o puedes iniciar los pasos para comenzar a cocinar diciendo "paso uno", o "inicia los pasos".';
     } else if(currentIntent === 'RecipeIngredientsIntent'){
-<<<<<<< HEAD
       speechText = 'Puedo crear una lista con los ingredientes de la receta si lo deseas, o si ya puedes comenzar a cocinar, inicia los pasos diciendo "Paso uno".'
-=======
-      speechText = 'Puedes crear una lista con los ingredientes, o si ya los tienes listos, intenta comenzar con los pasos diciendo "Paso uno", o "Inicia los pasos".';
->>>>>>> 2051ae80939a274a9b86706bc87ff91d60de3443
     } else if(currentIntent === 'RecipeStepNumberIntent' || currentIntent === 'RecipeNextStepIntent' || currentIntent === 'RecipePreviousStepIntent'){
       speechText = 'Puedes decir "Continúa", "Anterior", o dime el número del paso que quieras saber. ';
       speechText += 'Si no te sientes seguro de seguir con los pasos, puedes preguntarme por más detalles de la receta, o por sus ingredientes.';

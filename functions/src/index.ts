@@ -1,9 +1,5 @@
 import * as functions from "firebase-functions";
 import { DefaultApiClient, SkillBuilders, } from "ask-sdk-core";
-<<<<<<< HEAD
-=======
-import { SkillRequestSignatureVerifier, TimestampVerifier } from "ask-sdk-express-adapter";
->>>>>>> 2051ae80939a274a9b86706bc87ff91d60de3443
 import { launchRequestHandler, cancelAndStopIntentHandler, sessionEndedRequestHandler, errorHandler, helpIntentHandler } from "./handlers/base-request";
 import { ContinueRecipeIntent, NoIntent, RecipeDetailsIntent, RecipeIngredientsIntent } from "./handlers/recipe-request/recipe-details";
 import { RecipeNextStepIntent, RecipePreviousStepIntent, RecipeStepNumberIntent } from "./handlers/recipe-request/recipe-steps";
@@ -33,13 +29,6 @@ const skill = SkillBuilders.custom()
 
 exports.alexa = functions.https.onRequest(async (req, res) => {
     try {
-<<<<<<< HEAD
-=======
-        const textBody = req.rawBody.toString();
-
-        await new SkillRequestSignatureVerifier().verify(textBody, req.headers);
-        await new TimestampVerifier().verify(textBody);
->>>>>>> 2051ae80939a274a9b86706bc87ff91d60de3443
         const response = await skill.invoke(req.body);  
         
         res.send(response);
