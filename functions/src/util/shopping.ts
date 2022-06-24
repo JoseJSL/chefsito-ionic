@@ -1,5 +1,4 @@
-import { Directive, services } from 'ask-sdk-model';
-import { HandlerInput } from 'ask-sdk-core';
+import { services } from 'ask-sdk-model';
 import { Ingredient } from './recipe';
 import { getReadableIngredient, isNotWordConnector } from './firebase';
 import { searchAmazon, AmazonSearchResult } from 'unofficial-amazon-search'
@@ -25,19 +24,6 @@ export function getListOfIngredients(ingredients: Ingredient[]): string[]{
     }
 
     return list;
-}
-
-export async function getProductsDirective(ingredients: Ingredient[], handlerInput: HandlerInput): Promise<Directive>{
-    let shopDirective: Directive = {
-        type: 'Connections.StartConnection',
-        uri: 'connection://AMAZON.AddToShoppingCart/1',
-        token: 'AddToShoppingCartToken',
-        input: {
-            'products': { 'asin': 'B0957T7XN4'}
-        }
-    };
-    
-    return shopDirective;
 }
 
 export async function searchProducts(ingredients: Ingredient[]): Promise<AmazonSearchResult[]>{
